@@ -1,0 +1,10 @@
+ 
+ 
+ style={{ backgroundColor: 'white' }
+ {details?.episodes?.map((data,index) => {
+            return <Link to={`/anime/watch/${details.id}?ep=${data.id}`} 
+            key={data.id}>
+               <p className='li' > <span>{data.number}.  {data.title}</span>
+              <br /> <span>{data.description}</span>
+              </p></Link>
+        })}
