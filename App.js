@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { StyleSheet,  View, StatusBar } from 'react-native';
 import NavigationsCon from './Navigations/NavigationsCon'
 import WishListContextProvider from './store/context/WishList';
+import { Provider } from 'react-redux';
+import { store } from './store/redux/store';
 
 
 
@@ -54,7 +56,14 @@ const clearTheCart = () => {
 useEffect(() => {
         
   dataFetch()
+
 }, [])
+
+  
+
+
+
+
 let shopLink = 'https://shop.abusayeeed.xyz/wp/'
 key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
 const dataFetch = async () => {
@@ -75,7 +84,8 @@ setLoading(false)
   <StatusBar barStyle={'default'}  />
 
     <View style={styles.container}>
- <WishListContextProvider>
+ {/* <WishListContextProvider> */}
+ <Provider store={store}>
 
 <NavigationsCon  isLoading={isLoading}
  allProducts={allProducts} 
@@ -83,7 +93,8 @@ setLoading(false)
  cart={cart} 
  addToCart={addToCart} />
 
-</WishListContextProvider>
+   {/* </WishListContextProvider> */}
+   </Provider>
         </View>
         </>
   );

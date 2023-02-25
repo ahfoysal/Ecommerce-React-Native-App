@@ -8,3 +8,14 @@
               <br /> <span>{data.description}</span>
               </p></Link>
         })}
+
+
+        Q>>/}9xTmz>JgY|
+
+https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=test1@gmail.com&password=test1234&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
+
+
+https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&email=foysal21@gmail.com&password=new1234&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
+
+
+const object =  jwt_decode(token);

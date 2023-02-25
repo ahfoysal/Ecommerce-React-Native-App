@@ -8,12 +8,22 @@ import Home from '../screens/Home';
 import Single from '../screens/SingleProduct';
 import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
+import WishListScreen from '../screens/WishListScreen';
+import Login from '../screens/Login';
+import { useContext } from 'react';
+import { WishListContext } from '../store/context/WishList';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
 
 function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
+  // const wishListCtx = useContext(WishListContext)
+  const wishListItems = useSelector(state => state.wishListItems.ids )
+
+
+
   let Total = cart.map((qun) => qun.quantity)
   let sum = 0; 
   
@@ -22,7 +32,14 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
     });
    
     function BottomNavigator() {
-        return (  <BottomTab.Navigator >
+        return (  <BottomTab.Navigator    screenOptions={{
+          headerStyle: { backgroundColor: '#141414'},
+          headerTintColor: 'white',
+        
+          tabBarActiveTintColor: '#f7bc0c',
+          tabBarStyle: {backgroundColor: '#141414'}, 
+        
+        }}>
             <BottomTab.Screen  name="Home"  options={{
               title: 'Home',
               tabBarIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />,
@@ -36,15 +53,33 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
       
       
       
-            <BottomTab.Screen  name="My Cart"   options={{
+            <BottomTab.Screen  name="Cart"   options={{
           
           tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="cart" size={size} color={color} />,
-          tabBarBadge: sum > 0 ? sum : null
+          tabBarBadge: sum > 0 ? sum : null,
+          tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}
        
         }}>
         {(props) => <Cart cart={cart} setCart={setCart}  {...props} />}
         </BottomTab.Screen>
         
+        <BottomTab.Screen  name="Wish List"   options={{
+          
+          tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="heart" size={size} color={color} />,
+          tabBarBadge: wishListItems.length > 0 ? wishListItems.length : null,
+          tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}
+
+        }}>
+        {(props) => <WishListScreen   {...props} />}
+        </BottomTab.Screen>
+
+        <BottomTab.Screen  name="Account"   options={{
+          
+          tabBarIcon: ({color, size}) => <Ionicons name='person-sharp' size={size} color={color} />,
+       
+        }}>
+        {(props) => <Login   {...props} />}
+        </BottomTab.Screen>
         
         
       
@@ -63,13 +98,6 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
       }}>
         <Stack.Screen  name="Nav"  component={BottomNavigator} options={{headerShown: false,}} />
 
-        <Stack.Screen  name="Home"  options={{
-          title: 'Home',
-          contentStyle: {backgroundColor: '#141414'},
-        }}> 
-        {(props) => <Home isLoading={isLoading} pro={allProducts} {...props} />}
-        
-        </Stack.Screen>
         <Stack.Screen  name="Info" 
         options={({route}) => {
           const CatId = route.params.product.name
@@ -80,13 +108,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
         {(props) => <Single addToCart={addToCart} cart={cart} {...props} />}
         </Stack.Screen>
         
-        <Stack.Screen  name="My Cart"   options={{
-    
-          tabBarBadge: sum > 0 ? sum : null
        
-        }}>
-        {(props) => <Cart cart={cart} setCart={setCart}  {...props} />}
-        </Stack.Screen>
         
         <Stack.Screen  name="Checkout"  >
         {(props) => <Checkout cart={cart} {...props} />}

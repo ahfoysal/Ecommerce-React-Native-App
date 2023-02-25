@@ -1,9 +1,12 @@
 import { useContext } from "react"
-import { WishListContext } from "../store/context/WishList"
+import { FlatList, Text } from "react-native"
+import { useSelector } from "react-redux"
+import Grid from "../components/Grid"
+// import { WishListContext } from "../store/context/WishList"
 
-function Wish() {
-    const wishListCtx = useContext(WishListContext)
-
+function Wish({navigation}) {
+    // const wishListCtx = useContext(WishListContext)
+    const wishListItems = useSelector(state => state.wishListItems.ids )
 
     function renderPopularItem(itemData) {
  
@@ -15,6 +18,7 @@ function Wish() {
     })
         }
         return (
+
             <Grid   
              title={itemData.item.name} 
              price={itemData.item.price} 
@@ -31,14 +35,15 @@ function Wish() {
     
 
     return (
-        
+        <>
+         {wishListItems.length < 1 && <Text> No item in cart</Text>}
         <FlatList
-            data={pro}
+            data={wishListItems}
             keyExtractor={(item) => item.id}
             renderItem={renderPopularItem}
             numColumns={2}
           />
-
+          </>
 
         
     )

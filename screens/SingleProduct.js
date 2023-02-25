@@ -3,7 +3,9 @@ import {  FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView
 import CartIcon from "../components/CartICon";
 
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
-import { WishListContext } from "../store/context/WishList";
+import { useDispatch, useSelector } from "react-redux";
+// import { WishListContext } from "../store/context/WishList";
+import { addWishList, removeWishList } from "../store/redux/wishList";
 
 
 
@@ -11,10 +13,13 @@ import { WishListContext } from "../store/context/WishList";
 
 function AnimeInfo({route, navigation, addToCart, cart}) {
 
-  const wishListCtx = useContext(WishListContext)
+  // const wishListCtx = useContext(WishListContext)
+
+  const wishListItems = useSelector((state) => state.wishListItems.ids)
+  const dispatch =  useDispatch()
     const product = route.params.product
     
-const isItemFav = wishListCtx.ids.includes(product)
+const isItemFav = wishListItems.includes(product)
     function handle() {
       navigation.navigate('Cart')
   }
@@ -22,9 +27,11 @@ const isItemFav = wishListCtx.ids.includes(product)
   function wishHandle() {
     console.log('added ')
     if(isItemFav){
-      wishListCtx.removeWishList(product)
+      // wishListCtx.removeWishList(product)
+      dispatch(removeWishList({id: product}))
     }else {
-      wishListCtx.addWishList(product)
+      // wishListCtx.addWishList(product)
+      dispatch(addWishList({id: product}))
     }
   }
     useLayoutEffect(() => {
