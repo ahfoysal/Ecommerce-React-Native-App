@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/3cb47b2c-5cc9-4204-b54d-cf7dfc675e54"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -25,7 +26,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.hosan30.PewdsFlix"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +36,9 @@
       "eas": {
         "projectId": "3cb47b2c-5cc9-4204-b54d-cf7dfc675e54"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }

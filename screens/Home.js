@@ -1,63 +1,53 @@
-import { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
-import Grid from "../components/Grid";
+
+import {  Text, View } from "react-native";
+import Category from "../components/Category";
+import Allitems from "../components/AllItems";3
+
+import { useState,  useLayoutEffect} from "react";
 
 
 
-function Home({navigation}) {
+function Home({pro, isLoading, navigation }) {
+    const [activeCategory, setActiveCategory] = useState([])
 
-  function renderPopularItem(itemData) {
- 
-    function pressHandler(){
-navigation.navigate('Info', {
-  animeId: itemData.item.id,
-  animeTitle: itemData.item.title.english,
-})
-    }
-    return (
-        <Grid   
-         title={itemData.item.title.english} 
-         image={itemData.item.image} 
-         color={itemData.item.color} 
-        onPress={pressHandler}
-        
-         />
-    )
-}
+   
 
+    useLayoutEffect(() => {
+    navigation.setOptions({
+    
+        headerLeft: () => {
+            return <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', marginLeft: 5}}>Pewds</Text>
+        }
+    })
+    },[navigation])
   
 
-const [details, setDetails] = useState('')
-const [isLoading, setLoading] = useState(true);
-    const getArticlesFromApi = async () => {
-        try {
-          let response = await fetch(
-            'https://api.consumet.org/meta/anilist/popular?page=1&perPage=20'
-          );
-          let json = await response.json();
-          console.log('rr')
-          setDetails(json.results)
-          setLoading(false)
-        } catch (error) {
-           console.error(error);
+    const gteProducts = (id) =>{
+        console.log('working')
+        if(id == 'all'){
+            return setActiveCategory(pro)
         }
-      };
-      useEffect(() => {
-        getArticlesFromApi()
-    }, [])
+        const cartItems = pro.map((cart)=> {
+            return cart.categories.map(cat => (cart)).filter((val)=> {
+              return val.categories[0].name === id
+                  });          
+            });
+        
+          const merged = [].concat.apply([], cartItems);
+          let uniqueChars = [...new Set(merged)];
+         
+        setActiveCategory(uniqueChars)
+        
+        }
+  
+
+
 
     return (
          <View>
-            {isLoading ? <Text>Loading...</Text> : 
-      ( 
-          <FlatList
-            data={details}
-            keyExtractor={(item) => item.id}
-            renderItem={renderPopularItem}
-            numColumns={2}
-          />
-        
-      )}
+         <Category  pro={pro} onPress={gteProducts}/>
+         <Allitems  pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
+       
          </View>
     )
 }

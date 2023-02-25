@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text, View, Platform } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Platform, Image } from 'react-native';
 
 
-function Grid ({title, image, color, onPress,}) {
+function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice}) {
   
     return (
 
@@ -10,10 +10,21 @@ function Grid ({title, image, color, onPress,}) {
         <Pressable android_ripple={{color: '#ccc'}}  style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
         onPress={onPress}
         >
-        <View style={[styles.innerContainer, {backgroundColor: color}]}>
+        <View style={[styles.innerContainer]}>
+        {/* {salePrice &&         <Text style={styles.whiteText}>
+        Sale</Text>} */}
+        <Image style={styles.image} source={{uri: imageUrl}}/>
+        <Text style={styles.whiteText}>{category}</Text>
+
         <Text style={styles.whiteText}>{title}</Text>
+        <Text style={styles.whiteText}>{price}</Text>
+
+        {salePrice &&         <Text style={styles.whiteText}>{regularPrice}</Text>}
+
+
         </View>
         </Pressable>
+       
        
         </View>
         
@@ -31,7 +42,7 @@ const styles = StyleSheet.create({
         
         color: 'white',
        flex: 1,
-       height: 200,
+       height: 300,
        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
        elevation: 4,
        shadowColor: 'black',
@@ -57,11 +68,16 @@ const styles = StyleSheet.create({
 
         padding: 6,
         justifyContent: 'center',
-        alignItems: 'center',
+        
 
       },
       buttonPressed: {
         opacity: 0.5
+        
+      },
+      image: {
+        width: '100%',
+        height: 200,
         
       }
   });
