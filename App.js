@@ -1,15 +1,18 @@
-
+import { useEffect, useState } from 'react';
 import { StyleSheet,  View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './screens/Home';
 import Single from './screens/SingleProduct';
 import Cart from './screens/Cart';
 import Checkout from './screens/Checkout';
-import { useEffect, useState } from 'react';
+import { Entypo } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';  
+import { Ionicons } from '@expo/vector-icons'; 
 
 const Stack = createNativeStackNavigator()
-
+const BottomTab = createBottomTabNavigator()
 
 export default function App({navigation}) {
   const [cart , setCart] = useState([])
@@ -70,6 +73,12 @@ const data = await (
 setAllProducts(data)
 setLoading(false)
 };
+let Total = cart.map((qun) => qun.quantity)
+let sum = 0; 
+
+Total.forEach(item => {
+    sum += item;
+  });
 
   return (
   <>
@@ -77,38 +86,70 @@ setLoading(false)
 
     <View style={styles.container}>
       <NavigationContainer>
-      <Stack.Navigator screenOptions={{
+      <BottomTab.Navigator screenOptions={{
           headerStyle: { backgroundColor: '#141414'}, 
           headerTintColor: 'white',
           
       }}>
-        <Stack.Screen  name="Home"  options={{
+        <BottomTab.Screen  name="Home"  options={{
           title: 'Home',
           contentStyle: {backgroundColor: '#141414'},
+          tabBarIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />,
+
        
         }}> 
         {(props) => <Home isLoading={isLoading} pro={allProducts} {...props} />}
         
-        </Stack.Screen>
-        <Stack.Screen  name="Info" 
-        options={({route, navigation}) => {
-          const CatId = route.params.product.name
-          return {
-              title: CatId
-          }; }} 
+        </BottomTab.Screen>
+        <BottomTab.Screen  name="Info" 
+        // options={({route, navigation}) => {
+        //   const CatId = route.params.product.name
+        //   return {
+        //       title: CatId
+        //   }; }} 
           >
         {(props) => <Single addToCart={addToCart} cart={cart} {...props} />}
-        </Stack.Screen>
-        <Stack.Screen  name="Cart"  >
+        </BottomTab.Screen>
+        
+        <BottomTab.Screen  name="My Cart"   options={{
+    
+          tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="cart" size={size} color={color} />,
+          tabBarBadge: sum > 0 ? sum : null
+       
+        }}>
         {(props) => <Cart cart={cart} setCart={setCart}  {...props} />}
-        </Stack.Screen>
-        <Stack.Screen  name="Checkout"  >
+        </BottomTab.Screen>
+        
+        <BottomTab.Screen  name="Checkout"  >
         {(props) => <Checkout cart={cart} {...props} />}
-        </Stack.Screen>
+        </BottomTab.Screen>
 
 
 
-      </Stack.Navigator>
+        <BottomTab.Screen  name="Orders"  options={{
+          title: 'Orders',
+       
+          tabBarIcon: ({color, size}) => <Ionicons name="ios-person-sharp" size={size} color={color} />,
+
+       
+        }} >
+        {(props) => <Checkout cart={cart} {...props} />}
+        </BottomTab.Screen>
+
+        
+        <BottomTab.Screen  name="Account"  options={{
+          title: 'Account',
+       
+          tabBarIcon: ({color, size}) => <Ionicons name="ios-person-sharp" size={size} color={color} />,
+
+       
+        }} >
+        {(props) => <Checkout cart={cart} {...props} />}
+        </BottomTab.Screen>
+
+
+
+      </BottomTab.Navigator>
      
     
       </NavigationContainer>
