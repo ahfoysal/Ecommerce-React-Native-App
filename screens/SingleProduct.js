@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useContext } from "react";
 import {  FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
 import CartIcon from "../components/CartICon";
 
+import { MaterialCommunityIcons  } from '@expo/vector-icons'
+import { WishListContext } from "../store/context/WishList";
 
 
 
@@ -10,21 +11,37 @@ import CartIcon from "../components/CartICon";
 
 function AnimeInfo({route, navigation, addToCart, cart}) {
 
-  
+  const wishListCtx = useContext(WishListContext)
     const product = route.params.product
     
-
+const isItemFav = wishListCtx.ids.includes(product)
     function handle() {
       navigation.navigate('Cart')
+  }
+
+  function wishHandle() {
+    console.log('added ')
+    if(isItemFav){
+      wishListCtx.removeWishList(product)
+    }else {
+      wishListCtx.addWishList(product)
+    }
   }
     useLayoutEffect(() => {
       navigation.setOptions({
           headerRight: () => {
              
-              return <CartIcon onPress={handle} cart={cart}/>
+            
+              return <>
+              
+              <MaterialCommunityIcons  onPress={wishHandle}  name={isItemFav ? 'heart' : 'heart-outline'} color='white'  size={28}/>
+              <CartIcon onPress={handle} cart={cart}/>
+
+
+              </>
           }
       })
-      },[navigation, handle])
+      },[navigation, handle, wishHandle])
 
 
 
