@@ -1,4 +1,7 @@
 import { Pressable, StyleSheet, Text, View, Platform, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
+import { GlobalStyles } from "../util/styles";
+
 
 
 function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice}) {
@@ -10,13 +13,16 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
         <Pressable android_ripple={{color: '#ccc'}}  style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
         onPress={onPress}
         >
-        <View style={[styles.innerContainer]}>
         {/* {salePrice &&         <Text style={styles.whiteText}>
         Sale</Text>} */}
         <Image style={styles.image} source={{uri: imageUrl}}/>
-        <Text style={styles.whiteText}>{category}</Text>
+        <View style={[styles.innerContainer]}>
+        <View style={{flexDirection: 'row'}}>
+        <Ionicons name='star' size={14} color={'orange'} />
+        <Text style={{color: GlobalStyles.colors.gray100, fontSize: 13, paddingHorizontal: 4}}>0.0</Text>
+        </View>
 
-        <Text style={styles.whiteText}>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.whiteText}>{price}</Text>
 
         {salePrice &&         <Text style={styles.whiteText}>{regularPrice}</Text>}
@@ -33,28 +39,26 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
 }
 const styles = StyleSheet.create({
     itemCon: {
-        marginTop: 12,
-        marginBottom: 12,
-        marginLeft: 6,
-        marginRight:  6,
-        borderRadius: 8,
+      
+        borderRadius: 6,
         backgroundColor: '#212529',
-        
-        color: 'white',
+      margin: 5,  
+      color: 'white',
        flex: 1,
        height: 300,
-       overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+       overflow: 'hidden',
        elevation: 4,
        shadowColor: 'black',
        shadowOpacity: 0.25,
-       shadowOffset: { width: 0, height: 2}
+       shadowOffset: { width: 0, height: 2},
+       maxWidth: 200,
        
 
 
       },
-      whiteText: {
+      title: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: 600,
         fontSize: 14,
         
       },
@@ -63,13 +67,10 @@ const styles = StyleSheet.create({
 
       },
       innerContainer: {
-        flex: 1,
-        borderRadius: 8,
 
-        padding: 6,
-        justifyContent: 'center',
-        
-
+        paddingHorizontal: 10,
+        paddingVertical: 10
+    
       },
       buttonPressed: {
         opacity: 0.5

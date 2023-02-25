@@ -47,6 +47,9 @@ navigation.navigate('Info', {
             keyExtractor={(item) => item.id}
             renderItem={renderPopularItem}
             numColumns={2}
+            showsVerticalScrollIndicator={false}
+
+
           />
         
       )}

@@ -11,6 +11,8 @@ export default function App({navigation}) {
   const [cart , setCart] = useState([])
 const [isLoading, setLoading] = useState(true);
 const [allProducts , setAllProducts] = useState([]);
+const [isDark , setIsDark] = useState(true);
+
 
 
 
@@ -91,7 +93,9 @@ setLoading(false)
  allProducts={allProducts} 
  setCart={setCart}  
  cart={cart} 
- addToCart={addToCart} />
+ addToCart={addToCart} 
+ isDark={isDark}
+ />
 
    {/* </WishListContextProvider> */}
    </Provider>

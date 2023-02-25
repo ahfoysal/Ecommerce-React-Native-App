@@ -10,15 +10,15 @@ import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
 import WishListScreen from '../screens/WishListScreen';
 import Login from '../screens/Login';
-import { useContext } from 'react';
-import { WishListContext } from '../store/context/WishList';
+// import { useContext } from 'react';
+// import { WishListContext } from '../store/context/WishList';
 import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
 
-function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
+function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDark}) {
   // const wishListCtx = useContext(WishListContext)
   const wishListItems = useSelector(state => state.wishListItems.ids )
 
@@ -46,7 +46,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart}) {
       
            
             }}> 
-            {(props) => <Home isLoading={isLoading} pro={allProducts} {...props} />}
+            {(props) => <Home isLoading={isLoading} pro={allProducts} isDark={isDark} {...props} />}
             
             </BottomTab.Screen>
           

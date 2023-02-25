@@ -4,10 +4,11 @@ import Category from "../components/Category";
 import Allitems from "../components/AllItems";3
 
 import { useState,  useLayoutEffect} from "react";
+import { GlobalStyles } from "../util/styles";
 
 
 
-function Home({pro, isLoading, navigation }) {
+function Home({pro, isLoading, navigation, isDark }) {
     const [activeCategory, setActiveCategory] = useState([])
 
    
@@ -44,7 +45,7 @@ function Home({pro, isLoading, navigation }) {
 
 
     return (
-         <View>
+         <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1}}>
          <Category  pro={pro} onPress={gteProducts}/>
          <Allitems  pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
        

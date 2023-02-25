@@ -62,6 +62,8 @@ function Ca({pro, onPress}) {
             keyExtractor={(item, index) => index}
             renderItem={renderPopularItem}
             horizontal
+            showsHorizontalScrollIndicator={false}
+
           />
         
        
