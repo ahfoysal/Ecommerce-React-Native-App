@@ -38,7 +38,7 @@ function Home({pro, isLoading, navigation, isDark }) {
 
 
     return (
-         <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1, paddingHorizontal: 10, paddingBottom: 80}}>
+         <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1, paddingHorizontal: 5, paddingBottom: 30}}>
          <Category  pro={pro} onPress={gteProducts}/>
          <Allitems  pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
        

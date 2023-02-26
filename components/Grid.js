@@ -16,7 +16,7 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
      
  <View style={{position: 'relative'}}>
  <Image style={styles.image} source={{uri: imageUrl}}/>
-        {salePrice &&         <Text  style={[
+        {salePrice &&   Platform.OS === 'android' &&      <Text  style={[
           styles.box,
           {
             transform: [{rotateX: '45deg'}, {rotateZ: '45deg'}],          },styles.tag
@@ -24,22 +24,27 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
         Sale</Text>}
        
      </View>
-     <Text style={styles.title}>{title}</Text>
 
        
         <View style={[styles.innerContainer]}>
-    
+        <Text style={styles.title}>{title}</Text>
+
         <View style={{flexDirection: 'row'}}>
-        <Ionicons name='star' size={14} color={GlobalStyles.colors.yellow200} />
+        <Ionicons name='star' size={12} color={GlobalStyles.colors.yellow200} />
+        <Text style={{color: GlobalStyles.colors.gray100, fontSize: 11, marginLeft: 2}}>0.00</Text>
 
 
         </View>
 
-        <Text style={styles.whiteText}>{price}</Text>
+          <View style={{flexDirection : 'row'}}>
+          <Text style={[styles.price, {fontSize: 12, paddingTop: 1}]}>৳</Text>
 
-        {salePrice &&         <Text style={styles.whiteText}>{regularPrice}</Text>}
+          <Text style={styles.price}>{price}</Text>
 
-
+          {salePrice &&         <Text style={[styles.price , {fontSize: 11, paddingTop: 2, color: GlobalStyles.colors.pink200, marginLeft: 4,
+          textDecorationStyle: 'solid', textDecorationLine: 'line-through'
+          }]}>৳{regularPrice}</Text>}
+          </View>
         </View>
         </Pressable>
        
@@ -62,22 +67,22 @@ const styles = StyleSheet.create({
        shadowColor: 'black',
        shadowOpacity: 0.25,
        shadowOffset: { width: 0, height: 2},
-       maxWidth: 200,
+       maxWidth: 180,
        
 
 
       },
       title: {
         color: 'white',
-        fontWeight: '500',
-        fontSize: 14,
-        marginBottom: 13
+        fontWeight: '400',
+        fontSize: 13,
+        marginVertical: 12
         
       },
       innerContainer: {
 
         marginHorizontal: 10,
-        marginVertical: 10
+        // marginVertical: 10
     
       },
       buttonPressed: {
@@ -89,18 +94,26 @@ const styles = StyleSheet.create({
       },
       tag: {
           backgroundColor: '#3F0686',
-          overflow: 'hidden',
+          
           color: 'white',
           fontWeight: 'bold',
           fontSize: 14,
-          height: 20,
-          width: 45,
+          
+          
           textAlign: 'center',
-         
-          marginRight: 5,
+         paddingHorizontal: 30,
+         paddingVertical: 5,
           position: 'absolute',
-          right: 0,
+        
+          right: -20,
           top: 0
+      },
+      price: {
+        color: GlobalStyles.colors.text500,
+        fontWeight: '600',
+        fontSize: 14,
+        marginVertical: 10
+        
       }
   });
 

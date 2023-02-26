@@ -15,6 +15,9 @@ export const GlobalStyles = {
       gray100: 'gray',
       lightTheme: 'white',
       darkTheme: '#141414',
-      yellow200: '#faca51'
+      yellow200: '#faca51',
+      text500: '#f7bc0c',
+      pink200: '#dc143c',
+
     },
   };

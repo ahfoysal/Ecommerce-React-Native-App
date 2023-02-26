@@ -19,3 +19,12 @@ https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&email=foysa
 
 
 const object =  jwt_decode(token);
+
+
+<Text style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+
+
+ const test =  data?.subtitles?.map(sub =>  {
+      return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
+  
+      })

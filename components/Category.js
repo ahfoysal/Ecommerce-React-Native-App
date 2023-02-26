@@ -38,20 +38,19 @@ function Ca({pro, onPress}) {
     return (
          <View style={{flexDirection: 'row'}}>
        
-        <Pressable style={{   marginTop: 12,
-      marginBottom: 12,
-      marginLeft: 6,
-      marginRight:  6,
+        <Pressable style={{ 
+     height: 30,
+     margin: 6,
+     marginTop: 8,
       borderRadius: 8,
-      height: 40,
-      padding: 10,
+      
      width: 60,
-      backgroundColor: '#212529', 
+  backgroundColor: '#212529', 
    
       }}  onPress={ () => {onPress('all')}}>
        
         <View >
-        <Text style={styles.whiteText}>All</Text>
+        <Text style={[styles.whiteText, { paddingTop: 7}]}>All</Text>
 
         </View>
         
@@ -76,16 +75,14 @@ export default Ca
 
 const styles = StyleSheet.create({
   itemCon: {
-      marginTop: 12,
-      marginBottom: 12,
-      marginLeft: 6,
-      marginRight:  6,
+      marginTop: 8,
+      margin: 6,
       borderRadius: 8,
       backgroundColor: '#212529',
       
       color: 'white',
      flex: 1,
-     height: 40,
+     height: 30,
      
      overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
      elevation: 4,
@@ -108,7 +105,7 @@ const styles = StyleSheet.create({
       flex: 1,
       borderRadius: 8,
 
-      padding: 6,
+      paddingHorizontal: 6,
       justifyContent: 'center',
       
 
