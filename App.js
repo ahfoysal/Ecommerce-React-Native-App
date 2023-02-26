@@ -89,7 +89,7 @@ setLoading(false)
  {/* <WishListContextProvider> */}
  <Provider store={store}>
 
-<NavigationsCon  isLoading={isLoading}
+<NavigationsCon  isLoading={isLoading} 
  allProducts={allProducts} 
  setCart={setCart}  
  cart={cart} 
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   container: {
    
     flex: 1,
+    
     
     
   }

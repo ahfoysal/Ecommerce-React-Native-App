@@ -13,16 +13,28 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
         <Pressable android_ripple={{color: '#ccc'}}  style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
         onPress={onPress}
         >
-        {/* {salePrice &&         <Text style={styles.whiteText}>
-        Sale</Text>} */}
-        <Image style={styles.image} source={{uri: imageUrl}}/>
+     
+ <View style={{position: 'relative'}}>
+ <Image style={styles.image} source={{uri: imageUrl}}/>
+        {salePrice &&         <Text  style={[
+          styles.box,
+          {
+            transform: [{rotateX: '45deg'}, {rotateZ: '45deg'}],          },styles.tag
+        ]}>
+        Sale</Text>}
+       
+     </View>
+     <Text style={styles.title}>{title}</Text>
+
+       
         <View style={[styles.innerContainer]}>
+    
         <View style={{flexDirection: 'row'}}>
-        <Ionicons name='star' size={14} color={'orange'} />
-        <Text style={{color: GlobalStyles.colors.gray100, fontSize: 13, paddingHorizontal: 4}}>0.0</Text>
+        <Ionicons name='star' size={14} color={GlobalStyles.colors.yellow200} />
+
+
         </View>
 
-        <Text style={styles.title}>{title}</Text>
         <Text style={styles.whiteText}>{price}</Text>
 
         {salePrice &&         <Text style={styles.whiteText}>{regularPrice}</Text>}
@@ -39,13 +51,12 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
 }
 const styles = StyleSheet.create({
     itemCon: {
-      
         borderRadius: 6,
         backgroundColor: '#212529',
-      margin: 5,  
+       margin: 5,  
       color: 'white',
        flex: 1,
-       height: 300,
+    
        overflow: 'hidden',
        elevation: 4,
        shadowColor: 'black',
@@ -58,28 +69,38 @@ const styles = StyleSheet.create({
       },
       title: {
         color: 'white',
-        fontWeight: 600,
+        fontWeight: '500',
         fontSize: 14,
+        marginBottom: 13
         
-      },
-      button: {
-        flex: 1,
-
       },
       innerContainer: {
 
-        paddingHorizontal: 10,
-        paddingVertical: 10
+        marginHorizontal: 10,
+        marginVertical: 10
     
       },
       buttonPressed: {
-        opacity: 0.5
-        
+        opacity: 0.5      
       },
       image: {
         width: '100%',
-        height: 200,
-        
+        height: 200,   
+      },
+      tag: {
+          backgroundColor: '#3F0686',
+          overflow: 'hidden',
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 14,
+          height: 20,
+          width: 45,
+          textAlign: 'center',
+         
+          marginRight: 5,
+          position: 'absolute',
+          right: 0,
+          top: 0
       }
   });
 

@@ -3,7 +3,7 @@ import {  Text, View } from "react-native";
 import Category from "../components/Category";
 import Allitems from "../components/AllItems";3
 
-import { useState,  useLayoutEffect} from "react";
+import { useState} from "react";
 import { GlobalStyles } from "../util/styles";
 
 
@@ -13,14 +13,7 @@ function Home({pro, isLoading, navigation, isDark }) {
 
    
 
-    useLayoutEffect(() => {
-    navigation.setOptions({
-    
-        headerLeft: () => {
-            return <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', marginLeft: 5}}>Pewds</Text>
-        }
-    })
-    },[navigation])
+ 
   
 
     const gteProducts = (id) =>{
@@ -45,7 +38,7 @@ function Home({pro, isLoading, navigation, isDark }) {
 
 
     return (
-         <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1}}>
+         <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1, paddingHorizontal: 10, paddingBottom: 80}}>
          <Category  pro={pro} onPress={gteProducts}/>
          <Allitems  pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
        

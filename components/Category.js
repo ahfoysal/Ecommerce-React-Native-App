@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     },
     whiteText: {
       color: 'white',
-      fontWeight: 'bold',
-      fontSize: 14,
+      fontWeight: '500',
+      fontSize: 12,
       
       textAlign: 'center'
       
