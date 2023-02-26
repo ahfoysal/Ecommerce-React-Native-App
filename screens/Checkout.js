@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from "react";
 import {  Dimensions, FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
+import { openBrowserAsync } from 'expo-web-browser';
 
 
 function AnimeInfo({route, cart, navigation}) {
@@ -38,6 +39,7 @@ const body2= `${newCart}}`
         .then(result => {
           const rslt = result;
           console.log(rslt)
+          openBrowserAsync(rslt.payment_url)
           
          
           })
