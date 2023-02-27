@@ -1,8 +1,7 @@
-import { useLayoutEffect, useContext } from "react";
-import {   StyleSheet, Text, Button, View, Pressable,  ScrollView } from "react-native";
+import { useEffect, useLayoutEffect, useState } from "react";
+import {   StyleSheet, Text, View, Pressable,  ScrollView } from "react-native";
 import CartIcon from "../components/CartICon";
 import ImageContainer from "../components/Test/Test";
-import { useWindowDimensions } from 'react-native';
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
 import { useDispatch, useSelector } from "react-redux";
 // import { WishListContext } from "../store/context/WishList";
@@ -20,14 +19,42 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
+
+  const [isLoading, setLoading] = useState(true);
+const [variations , setVariations] = useState([]);
+
+
   
-  const { width } = useWindowDimensions();
 
   // const wishListCtx = useContext(WishListContext)
 
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
     const product = route.params.product
+
+
+
+
+
+    let shopLink = 'https://shop.abusayeeed.xyz/wp/'
+    key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+    
+    const dataFetch = async () => {
+      const data = await (
+        await fetch(
+          shopLink+`wp-json/wc/v3/products/`+product.id+`/variations?`+key+'&per_page=100'
+        )
+      ).json();
+      
+      console.log('data')
+      setVariations(data)
+      setLoading(false)
+      };
+       
+
+
+
+
     const Images = product.images.map((img => img))
 
 
@@ -53,6 +80,7 @@ function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
   }
     useLayoutEffect(() => {
       // console.log(product)
+      // dataFetch()
       navigation.setOptions({
           headerRight: () => {
              
@@ -66,8 +94,11 @@ function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
               </>
           }
       })
-      },[navigation, handle, wishHandle])
+      },[navigation, handle, wishHandle, dataFetch, ])
 
+      useEffect(() => {
+        dataFetch()
+      }, [])
 
 
     function pressHandler(){
@@ -107,34 +138,26 @@ function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
          <View style={[{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
          }]}>
        
-       
-      {product?.attributes.length > 1 &&
-        <View style={{ marginVertical: 10,}}>   
-       
-         {product?.attributes.map((att) => {
-    return <View key={att.name} style={{flexDirection: 'column', marginVertical: 10}}> 
-    <Text style={{color: 'white'}}>{att.name} : {att?.option}   </Text>
+      {isLoading ? <Text>Loading...</Text> :  
+      <>
+      {variations?.map((pro) => {
+    return <View key={pro.id} style={{flexDirection: 'row', }}> 
     
-    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10}}>
-       
-    {att.options?.map((opt, index) => {
-                              return  <Text key={opt} style={{color: 'white'}} onPress={() => console.log(product.variations[index] , opt) }>{opt} </Text>
-                      }
-                    )}
-        </View>
+     
+    {pro?.attributes.map((att) => {
+    return <View key={att.name}> 
+    <Text style={{color: 'white'}}>    {att?.name}  {att?.option}</Text>
+    
+    
        </View>
    
   })}
-        </View>
-        
-
+    </View>
+   
+  })}
+      </>
+      
       }
- 
-
-  
-  
-
-
          </View>
          {/* <RenderHtml
       contentWidth={width}

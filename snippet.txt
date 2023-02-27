@@ -42,3 +42,12 @@ const object =  jwt_decode(token);
 
   
   </> }
+
+  <FlatList
+            data={pro.attributes}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => <Button  style={{color: 'white'}} title='ok'/> }
+            numColumns={3}
+
+
+          />
