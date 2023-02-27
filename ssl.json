@@ -1,0 +1,23 @@
+{
+    "store_id": "pewds63fcce077dffd",
+    "store_passwd": "pewds63fcce077dffd@ssl",
+    "total_amount": "200",
+    "currency": "BDT",
+    "tran_id": "REF123",
+    "product_category": "VISA-Brac bank",
+    "success_url": "https://pewds.vercel.app/success",
+    "fail_url": "STANDARD CHARTERED BANK",
+    "cancel_url": "VISA",
+    "ipn_url": "Bangladesh",
+    "emi_option": "BD",
+    "cus_name": "BDT",
+    "cus_email": "Customer Name",
+    "cus_add1": "cust@yahoo.com",
+    "cus_city": "Dhaka",
+    "cus_country": "",
+    "cus_phone": "ref003",
+    "num_of_item": "0",
+    "product_name": "cloth",
+    "product_category": "Safe"
+  
+}

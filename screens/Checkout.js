@@ -45,7 +45,7 @@ const body2= `${newCart}}`
         .then(result => {
           const rslt = result;
           console.log(rslt)
-          WebBrowser.openBrowserAsync(rslt.payment_url)
+          WebBrowser.openBrowserAsync(`https://sslcommerz-gateway.vercel.app/ssl-request/${rslt.total}/${rslt.id}`)
           navigation.navigate('Home')
           
          

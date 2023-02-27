@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import {   StyleSheet, Text, View, Pressable,  ScrollView } from "react-native";
+import {   StyleSheet, Text, View, Pressable,  ScrollView, Image } from "react-native";
 import CartIcon from "../components/CartICon";
 import ImageContainer from "../components/Test/Test";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { WishListContext } from "../store/context/WishList";
 import { addWishList, removeWishList } from "../store/redux/wishList";
 import RenderHtml from 'react-native-render-html';
+import { useWindowDimensions } from 'react-native';
 import { GlobalStyles } from "../util/styles";
 import { Ionicons } from '@expo/vector-icons'; 
 
@@ -26,7 +27,7 @@ const [variations , setVariations] = useState([]);
 
   
 
-  // const wishListCtx = useContext(WishListContext)
+const { width } = useWindowDimensions();
 
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
@@ -47,11 +48,15 @@ const [variations , setVariations] = useState([]);
       ).json();
       
       console.log('data')
+      const ctgName =  data.map(product => {
+        return product.image.src})
+        console.log(ctgName)
+
+
       setVariations(data)
       setLoading(false)
       };
        
-
 
 
 
@@ -60,7 +65,19 @@ const [variations , setVariations] = useState([]);
 
 
     const source = {
-      html: product.description
+      html: product.description 
+    };
+    const tagsStyles = {
+     
+      a: {
+        color: 'white'
+      },
+      p: {
+        color: 'white'
+      },
+      span: {
+        color: 'white'
+      },
     };
     
     const isItemFav = wishListItems.includes(product)
@@ -135,37 +152,51 @@ const [variations , setVariations] = useState([]);
   
 
          </View>
-         <View style={[{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+         <View style={[ styles.variationContainer,{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
          }]}>
-       
-      {isLoading ? <Text>Loading...</Text> :  
-      <>
-      {variations?.map((pro) => {
-    return <View key={pro.id} style={{flexDirection: 'row', }}> 
-    
-     
-    {pro?.attributes.map((att) => {
-    return <View key={att.name}> 
-    <Text style={{color: 'white'}}>    {att?.name}  {att?.option}</Text>
-    
-    
+         <Text style={{color: 'white', fontSize: 16 , color: GlobalStyles.colors.gray100}}> Variations</Text>
+          {isLoading ? <Text>Loading...</Text> :  
+      <View style={{flexDirection: 'row', marginVertical: 15}}>
+      
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <View style={{justifyContent: 'flex-end', alignItems: 'stretch', marginRight: 15,}}>
+      {product.attributes.map((att) => {
+        return       <Text style={styles.attSize}>{att.name}</Text>
+      })}
+      </View>
+      {variations.map(products => {
+        return     <View  style={{width: 80 , justifyContent: 'center', alignItems: 'center'}}>
+        <Image style={{height: 60, width: 60}} source={{uri: products.image.src}}/>
+
+       <View >  
+       {products.attributes.map(att => {
+          return         <Text style={styles.attSize}>{att.option} </Text>
+
+        })}
        </View>
-   
-  })}
-    </View>
-   
-  })}
-      </>
+      
+        </View>
+})}
+</ScrollView>
+     
+      </View>
       
       }
          </View>
-         {/* <RenderHtml
+        
+    <View style={[styles.innerContainer, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+         }]}>
+          <RenderHtml
       contentWidth={width}
       source={source}
-    /> */}
-
+      tagsStyles={tagsStyles}
+         
+    /> 
+      </View>
         
                 </ScrollView>
+
+            
          <View  >
          <Pressable   onPress={pressHandler}>
             <Text  style={{   padding: 15,
@@ -186,7 +217,8 @@ const styles = StyleSheet.create({
       
     },
     innerContainer: {
-      margin: 10,
+      marginVertical: 15,
+      marginHorizontal: 10,
       paddingHorizontal: 15,
       paddingVertical: 15
     },
@@ -201,7 +233,18 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginVertical: 10
         
+      },
+      variationContainer: {
+        padding: 10,
+        paddingVertical: 15,
+
+      },
+      attSize: {
+        color: 'white',
+        fontSize: 10,
+        textAlign: 'center'
       }
+
   
 })
 export default AnimeInfo
