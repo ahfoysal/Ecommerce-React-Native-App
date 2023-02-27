@@ -1,10 +1,16 @@
 import * as React from 'react';
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import {  Dimensions, FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
-import { openBrowserAsync } from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser';
+    
+import * as Linking from 'expo-linking';
 
 
 function AnimeInfo({route, cart, navigation}) {
+
+
+
+
 
     const total = cart.reduce((total, prd) => total + prd.price * prd.quantity , 0)
     const createOrder = () => {
@@ -14,7 +20,7 @@ function AnimeInfo({route, cart, navigation}) {
         const StringCart= JSON.stringify(cartItems);  
         const newItms = StringCart.replace (/"/g,'');
         const newCart = newItms.replace (/'/g,'"');
-        const cID = `"customer_id":"34"  ,`
+        const cID = `"customer_id":"0"  ,`
         
         key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
 
@@ -23,7 +29,7 @@ function AnimeInfo({route, cart, navigation}) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
- const body1 = `{"payment_method":"cod" , ${cID} "payment_method_title":"Cash On Delivery" , "billing":{"first_name":"name","address_1":"address","phone":"015","email":"ahfoysal40@gmail.com"},"line_items":`
+ const body1 = `{"payment_method":"cod" , ${cID} "payment_method_title":"Cash On Delivery" , "billing":{"first_name":"name","country": "BD","address_1":"address","phone":"015","email":"ahfoysal40@gmail.com"},"line_items":`
 const body2= `${newCart}}`
     const body3 = body1.concat(' ', body2);
 
@@ -39,7 +45,8 @@ const body2= `${newCart}}`
         .then(result => {
           const rslt = result;
           console.log(rslt)
-          openBrowserAsync(rslt.payment_url)
+          WebBrowser.openBrowserAsync(rslt.payment_url)
+          navigation.navigate('Home')
           
          
           })
@@ -54,7 +61,8 @@ const body2= `${newCart}}`
     }
     
     function renderPopularItem(itemData) {
- 
+
+    
       
         return (
             <View style={styles.flexRow}>
@@ -63,9 +71,9 @@ const body2= `${newCart}}`
             <Image style={{height: 100, width: 100}} source={{uri: itemData.item.images[0].src}}/>
             </View>
             <View>
-            <Text style={{color: 'red'}}> {itemData.item.name}</Text>
-            <Text style={{color: 'red'}}> {itemData.item.price}</Text>
-            <Text style={{color: 'red'}}> {itemData.item.quantity}</Text>
+            <Text style={{color: 'red'}} > {itemData.item.name} handle</Text>
+            <Text style={{color: 'red'}} onPress={() => Linking.openURL('https://shop.abusayeeed.xyz/wp/cart')}>  {itemData.item.price}  linking</Text>
+            <Text style={{color: 'red'}} onPress={() => WebBrowser.openBrowserAsync('https://shop.abusayeeed.xyz/wp/cart')}> {itemData.item.quantity} brow</Text>
             <Text style={{color: 'red'}}> {total}</Text>
             </View>
         </View>

@@ -105,7 +105,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
               title: CatId
           }; }} 
           >
-        {(props) => <Single addToCart={addToCart} cart={cart} {...props} />}
+        {(props) => <Single addToCart={addToCart} cart={cart} isDark={isDark} {...props} />}
         </Stack.Screen>
         
        

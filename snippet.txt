@@ -28,3 +28,17 @@ const object =  jwt_decode(token);
       return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
   
       })
+
+
+      {product?.attributes.length >= 1 && <>
+  {product?.attributes.map((att) => {
+    return <><Text>{att.name} : {att?.option} </Text>
+      
+    
+    
+    
+    </>
+  })}
+
+  
+  </> }

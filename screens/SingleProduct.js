@@ -1,19 +1,26 @@
 import { useLayoutEffect, useContext } from "react";
-import {  FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
+import {   StyleSheet, Text, Button, View, Pressable,  ScrollView } from "react-native";
 import CartIcon from "../components/CartICon";
+import ImageContainer from "../components/Test/Test";
 import { useWindowDimensions } from 'react-native';
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
 import { useDispatch, useSelector } from "react-redux";
 // import { WishListContext } from "../store/context/WishList";
 import { addWishList, removeWishList } from "../store/redux/wishList";
 import RenderHtml from 'react-native-render-html';
-// import { SliderBox } from "react-native-image-slider-box";
+import { GlobalStyles } from "../util/styles";
+import { Ionicons } from '@expo/vector-icons'; 
 
 
 
 
 
-function AnimeInfo({route, navigation, addToCart, cart}) {
+
+
+
+
+function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
+  
   const { width } = useWindowDimensions();
 
   // const wishListCtx = useContext(WishListContext)
@@ -21,6 +28,8 @@ function AnimeInfo({route, navigation, addToCart, cart}) {
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
     const product = route.params.product
+    const Images = product.images.map((img => img))
+
 
 
     const source = {
@@ -33,7 +42,7 @@ function AnimeInfo({route, navigation, addToCart, cart}) {
   }
 
   function wishHandle() {
-    console.log('added ')
+    // console.log('added ')
     if(isItemFav){
       // wishListCtx.removeWishList(product)
       dispatch(removeWishList({id: product}))
@@ -43,6 +52,7 @@ function AnimeInfo({route, navigation, addToCart, cart}) {
     }
   }
     useLayoutEffect(() => {
+      // console.log(product)
       navigation.setOptions({
           headerRight: () => {
              
@@ -65,51 +75,71 @@ function AnimeInfo({route, navigation, addToCart, cart}) {
    
             }
 
-            function renderPopularItem(itemData) {
- 
-              
-              // const images =  [
-              //   "https://source.unsplash.com/1024x768/?nature",
-              //   "https://source.unsplash.com/1024x768/?water",
-              //   "https://source.unsplash.com/1024x768/?girl",
-              //   "https://source.unsplash.com/1024x768/?tree", 
-              // ]
-        
-              
-                return (
-                  <Image  key={itemData.item.id} style={{height: 400, width: 300}} source={{uri: itemData.item.src}}/>
-
-              
-
-                )
-            }
+       
     return (
       
-         <View  style={styles.container}>
-           
-           <FlatList
-            data={product.images}
-            keyExtractor={(item, index) => index}
-            renderItem={renderPopularItem}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-           
-          />
-           
+         <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
+         }]}>
+         
            <ScrollView showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-         
+         <ImageContainer  Images={Images}/>
+
+         <View style={[styles.innerContainer, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+         }]}>
+         <Text style={styles.title}>{product.name}</Text>
+         <View style={{flexDirection : 'row'}}>
+          <Text style={[styles.price, {fontSize: 18, paddingTop: 7, marginRight: 2}]}>৳</Text>
+          <Text style={styles.price}>{product.price}</Text>
+          {product.sale_price &&         <Text style={[styles.price , {fontSize: 15, paddingTop: 10, color: GlobalStyles.colors.pink200, marginLeft: 12,
+          textDecorationStyle: 'solid', textDecorationLine: 'line-through'
+          }]}>৳ {product.regular_price}</Text>}
+          </View>
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
+        <Ionicons name='star' size={16} color={GlobalStyles.colors.yellow200} />
+        <Text style={{color: 'white', fontSize: 13, marginLeft: 10}}>0.00</Text>
 
 
+        </View>
+  
 
-         <Text>{product.name}</Text>
-         <Text>{product.price}</Text>
-         {product.sale_price && <Text>{product.sale_price}</Text>}
+         </View>
+         <View style={[{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+         }]}>
        
-         <RenderHtml
+       
+      {product?.attributes.length > 1 &&
+        <View style={{ marginVertical: 10,}}>   
+       
+         {product?.attributes.map((att) => {
+    return <View key={att.name} style={{flexDirection: 'column', marginVertical: 10}}> 
+    <Text style={{color: 'white'}}>{att.name} : {att?.option}   </Text>
+    
+    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10}}>
+       
+    {att.options?.map((opt, index) => {
+                              return  <Text key={opt} style={{color: 'white'}} onPress={() => console.log(product.variations[index] , opt) }>{opt} </Text>
+                      }
+                    )}
+        </View>
+       </View>
+   
+  })}
+        </View>
+        
+
+      }
+ 
+
+  
+  
+
+
+         </View>
+         {/* <RenderHtml
       contentWidth={width}
       source={source}
-    />
+    /> */}
 
         
                 </ScrollView>
@@ -130,36 +160,25 @@ function AnimeInfo({route, navigation, addToCart, cart}) {
 const styles = StyleSheet.create({
     container : {
         flex: 1, 
-        padding: 0,
-        alignItems: 'center'
+      
     },
-    buttons: {
-        flex: 1,
-        justifyContent: 'center ',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        padding: 15,
-        width: '100%',
-        backgroundColor: '#FF9900',
-        
+    innerContainer: {
+      margin: 10,
+      paddingHorizontal: 15,
+      paddingVertical: 15
     },
-    cartbtn: {
-      textAlign: 'center',
+    title: {
       color: 'white',
-      fontWeight: 'bold'
+      fontSize: 18,
+      marginVertical: 5,
     },
-    btn: {
-      flex: 1,
-      width: '100%'
-    },
-    flexRow: {
-        flexDirection: 'row',
-        flex: 1,
-        height: 125,
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
-    },
+      price: {
+        color: GlobalStyles.colors.text500,
+        fontWeight: '600',
+        fontSize: 24,
+        marginVertical: 10
+        
+      }
   
 })
 export default AnimeInfo
