@@ -20,6 +20,7 @@ export const GlobalStyles = {
       yellow200: '#faca51',
       text500: '#f7bc0c',
       pink200: '#dc143c',
+      orange200: '#FF9900',
 
     },
   };

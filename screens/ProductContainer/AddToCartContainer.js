@@ -1,17 +1,17 @@
 import {  Pressable, StyleSheet, Text, View } from "react-native"
+import { GlobalStyles } from "../../util/styles"
 
 
 function Detail({pressHandler}) {
 return (
-    <View   >
-         <Pressable   onPress={pressHandler}>
+ 
+         <Pressable    style={{backgroundColor: GlobalStyles.colors.orange200}} onPress={pressHandler}>
             <Text  style={{   padding: 15,
-        width: 450,
+            color: 'white',
         textAlign: 'center',
-        backgroundColor: '#FF9900',
-        color: 'white' }}>Add To Cart</Text>
+    }}>Add To Cart</Text>
          </Pressable>
-        </View>  
+       
      
 )
 }

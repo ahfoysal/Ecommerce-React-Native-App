@@ -1,13 +1,34 @@
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { Ionicons } from '@expo/vector-icons'; 
 import { GlobalStyles } from "../../util/styles";
+import { useState } from "react";
 
 
-function Detail({isLoading, product, isDark, variations, }) {
+function Detail({isLoading, product, isDark, variations, selectedItem, setSelectedItem, variationHandle}) {
+  const [isItemSelected, setIsItemSelected] = useState(null);
+  // let shopLink = 'https://shop.abusayeeed.xyz/wp/'
+  // let key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+ 
+
+  const variationHandler = async (id) => {
+    setIsItemSelected(id.id)
+    setSelectedItem(id)
+    variationHandle(id)
+
+    console.log(id.attributes[0].name, id.attributes[0].option)
+   
+    };
+
 return (
     <View style={[ styles.variationContainer,{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
     }]}>
-    <Text style={styles.description}> Variations</Text>
+    <View style={{flexDirection: 'row'}}>
+    {!selectedItem ? <Text style={styles.description}> Variations</Text> : <Text style={styles.description}> Selected:</Text>}
+    {selectedItem  &&  selectedItem.attributes.map((name,index) => {
+      return <Text  key={index} style={{color: 'white'}}>{selectedItem.attributes[index].name} : {selectedItem.attributes[index].option}, </Text>
+    })}
+    <Text style={{color: 'white'}}> ⋄ Stock: {selectedItem?.stock_quantity}</Text>
+    </View>
      {isLoading ? <Text>Loading...</Text> :  
  <View style={{flexDirection: 'row', marginVertical: 15}}>
  
@@ -18,7 +39,8 @@ return (
  })}
  </View>
  {variations.map((products, index) => {
-   return     <Pressable  key={index} style={[{width: 80 , justifyContent: 'center', alignItems: 'center', marginHorizontal: 5}, styles.active]}>
+   return     <Pressable  onPress={() => variationHandler(products)} key={index} style={[{width: 80 , justifyContent: 'center', alignItems: 'center', marginHorizontal: 5},
+  isItemSelected === products.id &&  styles.active]}>
    <Image style={{height: 60, width: 60}} source={{uri: products.image.src}}/>
 
   <View >  
@@ -76,7 +98,9 @@ const styles = StyleSheet.create({
       borderBottomWidth: .5, 
       borderBottomColor: '#C8C8C8',
       paddingBottom: 5,
-      marginBottom: 8
+      marginBottom: 8, 
+      marginRight: 10,
+      
     },
     des: {
       fontSize: 16 , color: GlobalStyles.colors.gray100,
@@ -85,7 +109,9 @@ const styles = StyleSheet.create({
       marginBottom: 8
     },
     active: {
-        backgroundColor: GlobalStyles.colors.text500
+        backgroundColor: GlobalStyles.colors.orange200,
+        borderRadius: 6,
+        paddingVertical: 6
     }
 
 

@@ -4,6 +4,7 @@ import NavigationsCon from './Navigations/NavigationsCon'
 import WishListContextProvider from './store/context/WishList';
 import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -24,14 +25,14 @@ const [isDark , setIsDark] = useState(true);
     
     
     let indexOfObject = cart.filter(object => {
-      return object.name === id.name;
+      return object.id === id.id;
     });
     if(indexOfObject.length >= 1){
       indexOfObject[0].quantity = indexOfObject[0].quantity+1
     // console.log(indexOfObject[0])
     const newCart = [...cart, indexOfObject[0]];
     
-    const unique = [...new Map(newCart.map((m) => [m.name  , m])).values()];
+    const unique = [...new Map(newCart.map((m) => [m.id  , m])).values()];
     // console.log(unique);
 
     setCart(unique);
@@ -85,9 +86,10 @@ setLoading(false)
   <>
   <StatusBar barStyle={'default'}  />
 
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
  {/* <WishListContextProvider> */}
  <Provider store={store}>
+ 
 
 <NavigationsCon  isLoading={isLoading} 
  allProducts={allProducts} 
@@ -99,7 +101,7 @@ setLoading(false)
 
    {/* </WishListContextProvider> */}
    </Provider>
-        </View>
+        </SafeAreaView>
         </>
   );
 }

@@ -21,7 +21,7 @@ function Home({pro, isLoading, navigation, isDark }) {
     const gteProducts = (id) =>{
         console.log('working')
         if(id == 'all'){
-            return setActiveCategory(pro)
+            return setActiveCategory(pro.slice(0,12))
         }
         const cartItems = pro.map((cart)=> {
             return cart.categories.map(cat => (cart)).filter((val)=> {
@@ -44,7 +44,7 @@ function Home({pro, isLoading, navigation, isDark }) {
              
 
          <Category  pro={pro} onPress={gteProducts}/>
-         <Allitems   pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
+         <Allitems   pro={activeCategory.length < 1 ?  pro.slice(0,12) : activeCategory} isLoading={isLoading} navigation={navigation}/>
          </View>
     )
 }

@@ -11,19 +11,21 @@ import Detail from "./DetailContainer";
 import VariationContainer from './VariationContainer'
 import DescriptionContainer from './DescriptionContainer'
 import AddToCartConatiner from './AddToCartContainer'
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
 
   const [isLoading, setLoading] = useState(true);
 const [variations , setVariations] = useState([]);
-const [isItemSelected, setIsItemSelected] = useState(false);
+const [selectedItem, setSelectedItem] = useState(null);
+
 
 
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
     const product = route.params.product
     let shopLink = 'https://shop.abusayeeed.xyz/wp/'
-    key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+     let key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
     
     const dataFetch = async () => {
       const data = await (
@@ -65,13 +67,30 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       },[navigation, handle, wishHandle, dataFetch, ])
 
       useEffect(() => {
+        console.log(product)
+
         dataFetch()
 // const result = allProducts.filter(word => word.id == product.related_ids[0]);
 // console.log(result);
       }, [])
 
+
+   function   variationHandle(id){
+   
+      // console.log(id, 'h')
+     
+      let clone = { ...product }
+      clone.id = id.id
+      clone.name = `${product.name} ${id.attributes[0].option}`
+      clone.price = id.price
+      console.log(clone.id, product.id)
+      addToCart(clone)
+      // addToCart(product2)
+      }
+
     function pressHandler(){ 
-      if(variations.length > 0){
+      // console.log(id)
+      if(product.variations.length > 0){
         return console.log('Select Variation')
       }
       addToCart(product)
@@ -80,7 +99,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
             const page = Number(product.id/100)
     return (
       
-         <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
+         <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
          }]}>
      
                
@@ -93,7 +112,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
          />
         
         {variations.length > 0 && <>
-          <VariationContainer isLoading={isLoading} isDark={isDark} product={product} variations={variations}/>
+          <VariationContainer variationHandle={variationHandle} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isLoading={isLoading} isDark={isDark} product={product} variations={variations}/>
         </>}
         
    <DescriptionContainer isDark={isDark} strippedString={strippedString} strippedString2={strippedString2}/>
@@ -109,12 +128,12 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
                    category={item.categories.map(test =>test.name)}
                     salePrice ={item.sale_price}
                     regularPrice={item.regular_price}
-                  onPress={() => navigation.navigate('Info', {
+                  onPress={() => {
+                    navigation.navigate('Info', {
   animeId: item.id,
   animeTitle: item.name,
   product: item,
-})}
-                  
+})}}               
                    />
           })}
          </View>
@@ -123,7 +142,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
                 </ScrollView>   
             
       <AddToCartConatiner  pressHandler={pressHandler}/>  
-         </View>
+         </SafeAreaView>
        
     )
 }
