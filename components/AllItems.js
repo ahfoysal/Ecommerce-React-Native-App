@@ -54,6 +54,7 @@ navigation.navigate('Info', {
             showsVerticalScrollIndicator={false}
 
 
+
           />
         
         

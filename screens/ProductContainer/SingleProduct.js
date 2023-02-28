@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import {   StyleSheet, Text, View,  ScrollView } from "react-native";
+import {   StyleSheet, Text, View,  ScrollView, Alert } from "react-native";
 import CartIcon from "../../components/CartICon";
 import ImageContainer from "../../components/Test/Test";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
@@ -12,14 +12,19 @@ import VariationContainer from './VariationContainer'
 import DescriptionContainer from './DescriptionContainer'
 import AddToCartConatiner from './AddToCartContainer'
 import { SafeAreaView } from "react-native-safe-area-context";
+import ToastManager, { Toast } from 'toastify-react-native'; 
 
 function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
+  // const [scrollToIndex, setScrollToIndex] = useState(0);
+  // const [ref, SetRef] =useState(null)
 
   const [isLoading, setLoading] = useState(true);
 const [variations , setVariations] = useState([]);
 const [selectedItem, setSelectedItem] = useState(null);
+const [warning, setWarning] = useState(false);
 
 
+const [currentItem, setCurrentItem] = useState(null);
 
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
@@ -67,7 +72,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       },[navigation, handle, wishHandle, dataFetch, ])
 
       useEffect(() => {
-        console.log(product)
+        // console.log(product)
 
         dataFetch()
 // const result = allProducts.filter(word => word.id == product.related_ids[0]);
@@ -81,19 +86,38 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
      
       let clone = { ...product }
       clone.id = id.id
-      clone.name = `${product.name} ${id.attributes[0].option}`
+      // console.log('m', product.id, 'c', clone.id )
+      const att = id.attributes.map((names) =>  names.option)
+      // console.log(att)
+      clone.name = `${product.name} ${att}`
       clone.price = id.price
-      console.log(clone.id, product.id)
-      addToCart(clone)
+      // console.log(clone.id, product.id)
+      setCurrentItem(clone)
+      setWarning(false)
+      // addToCart(clone)
       // addToCart(product2)
       }
+      const handleSubmit = async () => {
+        Toast.success('Added To Cart');
+      };
+    
 
     function pressHandler(){ 
-      // console.log(id)
-      if(product.variations.length > 0){
-        return console.log('Select Variation')
+      // console.log(product.variations)
+     
+      if(product.variations.length < 1){
+        handleSubmit()
+       return  addToCart(product)
       }
-      addToCart(product)
+      // console.log(id)
+      if(!currentItem){
+        setWarning(true)
+        return Alert.alert('Select Variation')
+      }else{
+        addToCart(currentItem)
+        handleSubmit()
+      }
+    
  
             }
             const page = Number(product.id/100)
@@ -101,6 +125,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       
          <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
          }]}>
+          <ToastManager   animationStyle='rightInOut' positionValue={200} width={350} position='bottom' style={{ fontSize: 2 ,backgroundColor: 'black',color: 'white' , marginTop: 20}}/>
      
                
            <ScrollView showsHorizontalScrollIndicator={false}
@@ -112,7 +137,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
          />
         
         {variations.length > 0 && <>
-          <VariationContainer variationHandle={variationHandle} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isLoading={isLoading} isDark={isDark} product={product} variations={variations}/>
+          <VariationContainer  setCurrentItem={setCurrentItem} warning={warning} variationHandle={variationHandle} selectedItem={selectedItem} setSelectedItem={setSelectedItem} isLoading={isLoading} isDark={isDark} product={product} variations={variations}/>
         </>}
         
    <DescriptionContainer isDark={isDark} strippedString={strippedString} strippedString2={strippedString2}/>

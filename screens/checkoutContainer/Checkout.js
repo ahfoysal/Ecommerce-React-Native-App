@@ -2,11 +2,16 @@ import * as React from 'react';
 import { useEffect } from "react";
 import {  Dimensions, FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
+import { GlobalStyles } from '../../util/styles';
+import { TextInput } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import CartItemContainer from '../cartContainer/CartItemContainer';
+import Summray from './Summray';
     
 
 
 
-function AnimeInfo({route, cart, navigation}) {
+function AnimeInfo({route, cart, navigation, isDark, setCart}) {
 
 
 
@@ -45,8 +50,11 @@ const body2= `${newCart}}`
         .then(result => {
           const rslt = result;
           console.log(rslt)
+          
           WebBrowser.openBrowserAsync(`https://sslcommerz-gateway.vercel.app/ssl-request/${rslt.total}/${rslt.id}`)
+         
           navigation.navigate('Home')
+          setCart([])
           
          
           })
@@ -65,56 +73,71 @@ const body2= `${newCart}}`
     
       
         return (
-            <View style={styles.flexRow}>
-                        
-            <View>
-            <Image style={{height: 100, width: 100}} source={{uri: itemData.item.images[0].src}}/>
-            </View>
-            <View>
-            <Text style={{color: 'red'}} > {itemData.item.name} handle</Text>
-            <Text style={{color: 'red'}} onPress={() => Linking.openURL('https://shop.abusayeeed.xyz/wp/cart')}>  {itemData.item.price}  linking</Text>
-            <Text style={{color: 'red'}} onPress={() => WebBrowser.openBrowserAsync('https://shop.abusayeeed.xyz/wp/cart')}> {itemData.item.quantity} brow</Text>
-            <Text style={{color: 'red'}}> {total}</Text>
-            </View>
-        </View>
+            <CartItemContainer image={itemData.item.images[0].src}  price={itemData.item.price} regular_price={itemData.item.regular_price}
+            sale_price={itemData.item.sale_price}
+            name={itemData.item.name}  quantity={itemData.item.quantity} item={itemData.item}/>
+        )
+    }
+    function summary(itemData) {
+
+    
+      
+        return (
+            <Summray total={total}/>
         )
     }
 
-    // const product = route.params.product
 
 
     return (
       
-         <View  style={styles.container}>
+        <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
+        }]}>
+        
      
 
+        {cart.length > 0 && <>
                     <FlatList
             data={cart}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index}
             renderItem={renderPopularItem}
+            ListFooterComponent={summary}
            
           />
-            <View >
-         <Pressable  onPress={createOrder}>
-            <Text style={{   padding: 15,
-        width: 450,
+         
+            <View style={{justifyContent: 'space-between',  flexDirection: 'row' , margin: 10}}>
+            <View style={{justifyContent: 'space-between', marginHorizontal: 20}}>
+            <Text style={{color: GlobalStyles.colors.orange400, fontWeight: 'bold'}}>Total: {total}</Text>
+                <Text style={{color: GlobalStyles.colors.gray100, fontSize: 6}}>*Terms Conditions Applicable</Text>
+            
+
+            </View>
+            <Pressable    style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}} onPress={createOrder}>
+            <Text  style={{   padding: 10,
+            color: 'white',
         textAlign: 'center',
-        backgroundColor: '#FF9900',
-        color: 'white' }}>Place Order</Text>
+                fontWeight: 'bold'
+    }}>Place Order</Text>
          </Pressable>
-        </View> 
-         </View>
+            </View>
+                 </>
+                 
+                
+                 }
+
+                
+         </SafeAreaView>
        
     )
 }
 const styles = StyleSheet.create({
     container : {
         flex: 1, 
-        padding: 0,
-        alignItems: 'center'
+        paddingTop: 20
+      
     },
     buttons: {
-        flex: 1,
+   
         justifyContent: 'center ',
         alignItems: 'center',
         position: 'absolute',
@@ -124,12 +147,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF9900',
         
     },
-    flexRow: {
+    innerContainer: {
         flexDirection: 'row',
-        flex: 1,
+        marginVertical: 6,
+        backgroundColor: GlobalStyles.colors.darkTheme100, 
         height: 125,
-        justifyContent: 'space-evenly',
+        // justifyContent: 'space-evenly',
         alignItems: 'center'
+    },
+    summaryContainers: {
+        // flexDirection: 'row',
+        marginVertical: 10,
+        borderRadius: 8,
+        padding: 15,
+        
+        backgroundColor: GlobalStyles.colors.darkTheme100, 
+        // height: 125,
+       
+       
+        
+      
+       
     }
 })
 export default AnimeInfo

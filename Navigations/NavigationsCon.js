@@ -6,8 +6,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import Home from '../screens/Home';
 import Single from '../screens/ProductContainer/SingleProduct';
-import Cart from '../screens/Cart';
-import Checkout from '../screens/Checkout';
+import Cart from '../screens/cartContainer/Cart';
+import Checkout from '../screens/checkoutContainer/Checkout';
 import WishListScreen from '../screens/WishListScreen';
 import Login from '../screens/Login';
 // import { useContext } from 'react';
@@ -53,14 +53,14 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
       
       
       
-            <BottomTab.Screen  name="Cart"   options={{
+            <BottomTab.Screen  name="Cart"    options={{
           
           tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="cart" size={size} color={color} />,
           tabBarBadge: sum > 0 ? sum : null,
           tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}
        
         }}>
-        {(props) => <Cart cart={cart} setCart={setCart}  {...props} />}
+        {(props) => <Cart  isDark={isDark} cart={cart} setCart={setCart}  {...props} />}
         </BottomTab.Screen>
         
         <BottomTab.Screen  name="Wish List"   options={{
@@ -114,7 +114,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
        
         
         <Stack.Screen  name="Checkout"  >
-        {(props) => <Checkout cart={cart} {...props} />}
+        {(props) => <Checkout cart={cart} isDark={isDark} setCart={setCart} {...props} />}
         </Stack.Screen>
 
       </Stack.Navigator>
