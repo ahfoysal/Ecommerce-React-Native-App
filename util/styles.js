@@ -12,7 +12,7 @@ export const GlobalStyles = {
       error500: '#9b095c',
       gray500: '#39324a',
       gray700: '#221c30',
-      gray100: 'gray',
+      gray100: '#C8C8C8',
       lightTheme: 'white',
       lightTheme100: 'white',
       darkTheme: '#141414',

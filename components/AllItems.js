@@ -12,10 +12,12 @@ function All({navigation, isLoading,pro}) {
 navigation.navigate('Info', {
   animeId: itemData.item.id,
   animeTitle: itemData.item.name,
-  product: itemData.item
+  product: itemData.item,
+ 
 })
     }
     return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
         <Grid   
          title={itemData.item.name} 
          price={itemData.item.price} 
@@ -27,6 +29,7 @@ navigation.navigate('Info', {
         onPress={pressHandler}
         
          />
+         </View>
     )
 }
 
@@ -42,6 +45,7 @@ navigation.navigate('Info', {
          <View>
             {isLoading ? <Text>Loading...</Text> : 
       ( 
+       
           <FlatList
             data={pro}
             keyExtractor={(item) => item.id}
@@ -51,6 +55,7 @@ navigation.navigate('Info', {
 
 
           />
+        
         
       )}
          </View>

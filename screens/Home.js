@@ -44,7 +44,7 @@ function Home({pro, isLoading, navigation, isDark }) {
              
 
          <Category  pro={pro} onPress={gteProducts}/>
-         <Allitems  pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
+         <Allitems   pro={activeCategory.length < 1 ?  pro : activeCategory} isLoading={isLoading} navigation={navigation}/>
          </View>
     )
 }

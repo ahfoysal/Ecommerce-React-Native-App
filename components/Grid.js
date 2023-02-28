@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
        shadowOpacity: 0.25,
        shadowOffset: { width: 0, height: 2},
        maxWidth: 180,
+       minWidth: 160
        
 
 

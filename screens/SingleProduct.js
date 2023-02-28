@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import {   StyleSheet, Text, View, Pressable,  ScrollView, Image } from "react-native";
+import {   StyleSheet, Text, View, Pressable,  ScrollView, Image, FlatList } from "react-native";
 import CartIcon from "../components/CartICon";
 import ImageContainer from "../components/Test/Test";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'
@@ -10,28 +10,45 @@ import RenderHtml from 'react-native-render-html';
 import { useWindowDimensions } from 'react-native';
 import { GlobalStyles } from "../util/styles";
 import { Ionicons } from '@expo/vector-icons'; 
+import Grid from "../components/Grid";
 
 
 
 
+// const tagsStyles = {
+     
+//   a: {
+//     color: 'white'
+//   },
+//   p: {
+//     color: 'white'
+//   },
+//   span: {
+//     color: 'white'
+//   },
+//   pre: {
+//     color: 'white'
+//   },
+//   h1: {
+//     color: 'white'
+//   },
+// };
 
 
-
-
-
-function AnimeInfo({route, navigation, addToCart, cart, isDark}) {
+function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
 
   const [isLoading, setLoading] = useState(true);
 const [variations , setVariations] = useState([]);
 
 
-  
 
 const { width } = useWindowDimensions();
 
   const wishListItems = useSelector((state) => state.wishListItems.ids)
   const dispatch =  useDispatch()
     const product = route.params.product
+   
+
 
 
 
@@ -41,18 +58,16 @@ const { width } = useWindowDimensions();
     key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
     
     const dataFetch = async () => {
+    
       const data = await (
         await fetch(
           shopLink+`wp-json/wc/v3/products/`+product.id+`/variations?`+key+'&per_page=100'
         )
       ).json();
       
-      console.log('data')
-      const ctgName =  data.map(product => {
-        return product.image.src})
-        console.log(ctgName)
-
-
+      // console.log(allProducts)
+   
+          
       setVariations(data)
       setLoading(false)
       };
@@ -64,21 +79,11 @@ const { width } = useWindowDimensions();
 
 
 
-    const source = {
-      html: product.description 
-    };
-    const tagsStyles = {
-     
-      a: {
-        color: 'white'
-      },
-      p: {
-        color: 'white'
-      },
-      span: {
-        color: 'white'
-      },
-    };
+    const originalString = product.description;
+    const originalString2 = product.short_description;
+
+const strippedString = originalString.replace(/(<([^>]+)>)/gi, "")
+const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
     
     const isItemFav = wishListItems.includes(product)
     function handle() {
@@ -115,20 +120,30 @@ const { width } = useWindowDimensions();
 
       useEffect(() => {
         dataFetch()
+
+// const result = allProducts.filter(word => word.id == product.related_ids[0]);
+
+// console.log(result);
+
+
       }, [])
 
 
     function pressHandler(){
+      
       addToCart(product)
    
             }
+            const page = Number(product.id/100)
+            
 
        
     return (
       
          <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
          }]}>
-         
+     
+               
            <ScrollView showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
          <ImageContainer  Images={Images}/>
@@ -145,59 +160,86 @@ const { width } = useWindowDimensions();
           </View>
           <View style={{flexDirection: 'row', marginVertical: 10}}>
         <Ionicons name='star' size={16} color={GlobalStyles.colors.yellow200} />
-        <Text style={{color: 'white', fontSize: 13, marginLeft: 10}}>0.00</Text>
+        <Text style={{color: 'white', fontSize: 13, marginLeft: 10}}>0.00    ⋄    {product.total_sales} Sold</Text>
 
 
         </View>
   
 
          </View>
-         <View style={[ styles.variationContainer,{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+        {variations.length > 0 && <View style={[ styles.variationContainer,{backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
          }]}>
-         <Text style={{color: 'white', fontSize: 16 , color: GlobalStyles.colors.gray100}}> Variations</Text>
+         <Text style={styles.description}> Variations</Text>
           {isLoading ? <Text>Loading...</Text> :  
       <View style={{flexDirection: 'row', marginVertical: 15}}>
       
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View style={{justifyContent: 'flex-end', alignItems: 'stretch', marginRight: 15,}}>
-      {product.attributes.map((att) => {
-        return       <Text style={styles.attSize}>{att.name}</Text>
+      {product.attributes.map((att, index) => {
+        return       <Text  key={index} style={styles.attSize}>{att.name}</Text>
       })}
       </View>
-      {variations.map(products => {
-        return     <View  style={{width: 80 , justifyContent: 'center', alignItems: 'center'}}>
+      {variations.map((products, index) => {
+        return     <Pressable  key={index} style={{width: 80 , justifyContent: 'center', alignItems: 'center'}}>
         <Image style={{height: 60, width: 60}} source={{uri: products.image.src}}/>
 
        <View >  
        {products.attributes.map(att => {
-          return         <Text style={styles.attSize}>{att.option} </Text>
+          return         <Text key={att.option} style={styles.attSize}>{att.option} </Text>
 
         })}
        </View>
       
-        </View>
+        </Pressable>
 })}
 </ScrollView>
      
       </View>
       
       }
-         </View>
+         </View>}
         
-    <View style={[styles.innerContainer, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
+    <View style={[styles.variationContainer, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme100 : GlobalStyles.colors.lightTheme
          }]}>
-          <RenderHtml
-      contentWidth={width}
-      source={source}
-      tagsStyles={tagsStyles}
-         
-    /> 
+     <Text style={styles.description}>Description</Text>
+   {strippedString && <Text style={{color: 'white'}}>{strippedString} </Text>}
+   {strippedString2 && <Text style={{color: 'white'}}>{strippedString2} </Text>}
+
       </View>
         
-                </ScrollView>
+  <View style={styles.variationContainer}>
+  <Text style={styles.des}>You might also like</Text>
 
+         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+         {allProducts.slice((page-1) * 4, (page-1) * 4 + 4).map(item => {
+            return  <Grid   key={item.id}
+                   title={item.name} 
+                   price={item.price} 
+                   
+                   imageUrl={item.images[0].src} 
+                   category={item.categories.map(test =>test.name)}
+                    salePrice ={item.sale_price}
+                    regularPrice={item.regular_price}
+                  onPress={() => navigation.navigate('Info', {
+  animeId: item.id,
+  animeTitle: item.name,
+  product: item,
+ 
+})}
+                  
+                   />
+          })}
+         </View>
+
+  </View>
+
+
+                </ScrollView>
+              
+
+              
             
-         <View  >
+         <View   >
          <Pressable   onPress={pressHandler}>
             <Text  style={{   padding: 15,
         width: 450,
@@ -235,15 +277,30 @@ const styles = StyleSheet.create({
         
       },
       variationContainer: {
-        padding: 10,
+        padding: 15,
         paddingVertical: 15,
+        marginVertical: 10
 
       },
       attSize: {
         color: 'white',
         fontSize: 10,
         textAlign: 'center'
+      },
+      description: {
+        fontSize: 16 , color: GlobalStyles.colors.gray100,
+        borderBottomWidth: .5, 
+        borderBottomColor: '#C8C8C8',
+        paddingBottom: 5,
+        marginBottom: 8
+      },
+      des: {
+        fontSize: 16 , color: GlobalStyles.colors.gray100,
+        textAlign: 'center',
+        paddingBottom: 5,
+        marginBottom: 8
       }
+
 
   
 })

@@ -25,14 +25,14 @@ const Slider = ({Images}) => {
     )(event);
   };
 
-  // const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
-  //   // console.log('viewableItems', viewableItems);
-  //   setIndex(viewableItems[0].index);
-  // }).current;
+  const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
+    // console.log('viewableItems', viewableItems);
+    setIndex(viewableItems[0].index);
+  }).current;
 
-  // const viewabilityConfig = useRef({
-  //   itemVisiblePercentThreshold: 50,
-  // }).current;
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+  }).current;
 
   return (
     <View>
@@ -44,10 +44,11 @@ const Slider = ({Images}) => {
         snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
         onScroll={handleOnScroll}
-        // onViewableItemsChanged={handleOnViewableItemsChanged}
-        // viewabilityConfig={viewabilityConfig}
+        onViewableItemsChanged={handleOnViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
       />
       <Pagination data={Images} scrollX={scrollX} index={index} />
+     
     </View>
   );
 };

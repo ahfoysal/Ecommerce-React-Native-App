@@ -96,7 +96,10 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
           headerTintColor: 'white',
           
       }}>
+     
         <Stack.Screen  name="Nav"  component={BottomNavigator} options={{headerShown: false,}} />
+
+      
 
         <Stack.Screen  name="Info" 
         options={({route}) => {
@@ -105,7 +108,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
               title: CatId
           }; }} 
           >
-        {(props) => <Single addToCart={addToCart} cart={cart} isDark={isDark} {...props} />}
+        {(props) => <Single addToCart={addToCart} cart={cart} isDark={isDark} allProducts={allProducts} {...props} />}
         </Stack.Screen>
         
        
