@@ -5,7 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';  
 import { Ionicons } from '@expo/vector-icons'; 
 import Home from '../screens/Home';
-import Single from '../screens/SingleProduct';
+import Single from '../screens/ProductContainer/SingleProduct';
 import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
 import WishListScreen from '../screens/WishListScreen';

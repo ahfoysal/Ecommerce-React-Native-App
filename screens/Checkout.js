@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {  Dimensions, FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
     
-import * as Linking from 'expo-linking';
+
 
 
 function AnimeInfo({route, cart, navigation}) {
