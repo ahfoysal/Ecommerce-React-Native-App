@@ -23,9 +23,9 @@ return (
     </View>
  
     <View style={{marginVertical: 10}}>
-    <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 14, textAlign: 'right'}}>৳ {total}</Text>
+    <Text style={{color: GlobalStyles.colors.lightTheme, marginVertical: 8,  fontSize: 14, textAlign: 'right'}}>৳ {total}</Text>
     <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 14, textAlign: 'right'}}>৳ 0</Text>
-    <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 14, textAlign: 'right'}}>৳ {total}</Text>
+    <Text style={{color: GlobalStyles.colors.orange200, marginVertical: 8,  fontSize: 14, textAlign: 'right', fontWeight: 'bold'}}>৳ {total}</Text>
     </View>
     </View>
   
@@ -42,17 +42,9 @@ export default Summray
 const styles = StyleSheet.create({
     
     innerContainer: {
-        // flexDirection: 'row',
         marginVertical: 10,
         borderRadius: 8,
         padding: 15,
-        
-        backgroundColor: GlobalStyles.colors.darkTheme100, 
-        // height: 125,
-       
-       
-        
-      
-       
+        backgroundColor: GlobalStyles.colors.darkTheme100,       
     }
 })

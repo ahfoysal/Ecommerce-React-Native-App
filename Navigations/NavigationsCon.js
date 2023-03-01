@@ -13,6 +13,7 @@ import Login from '../screens/Login';
 // import { useContext } from 'react';
 // import { WishListContext } from '../store/context/WishList';
 import { useSelector } from 'react-redux';
+import SingleOrder from '../screens/SingleOrder';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
@@ -115,6 +116,10 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
         
         <Stack.Screen  name="Checkout"  >
         {(props) => <Checkout cart={cart} isDark={isDark} setCart={setCart} {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen  name="SingleOrder"  >
+        {(props) => <SingleOrder  isDark={isDark} {...props} />}
         </Stack.Screen>
 
       </Stack.Navigator>

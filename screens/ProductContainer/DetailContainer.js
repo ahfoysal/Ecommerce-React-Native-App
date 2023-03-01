@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         marginHorizontal: 10,
         paddingHorizontal: 15,
-        paddingVertical: 15
+        paddingVertical: 15, 
+        borderRadius: 8
       },
       title: {
         color: 'white',

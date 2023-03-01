@@ -12,6 +12,7 @@ import { GlobalStyles } from "../util/styles";
 
 function Home({pro, isLoading, navigation, isDark }) {
     const [activeCategory, setActiveCategory] = useState([])
+    const [active, setActive] = useState('all')
 
    
 
@@ -19,7 +20,8 @@ function Home({pro, isLoading, navigation, isDark }) {
   
 
     const gteProducts = (id) =>{
-        console.log('working')
+       
+        setActive(id)
         if(id == 'all'){
             return setActiveCategory(pro.slice(0,12))
         }
@@ -43,7 +45,7 @@ function Home({pro, isLoading, navigation, isDark }) {
          <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1, paddingHorizontal: 5, paddingBottom: 30}}>
              
 
-         <Category  pro={pro} onPress={gteProducts}/>
+         <Category active={active}  setActive={setActive} pro={pro} onPress={gteProducts}/>
          <Allitems   pro={activeCategory.length < 1 ?  pro.slice(0,12) : activeCategory} isLoading={isLoading} navigation={navigation}/>
          </View>
     )

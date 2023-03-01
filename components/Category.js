@@ -1,11 +1,12 @@
 
 import {  View, Text, FlatList, StyleSheet } from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { GlobalStyles } from "../util/styles";
 
 
 
 
-function Ca({pro, onPress}) {
+function Ca({pro, onPress, setActive,active}) {
 
 
   const ctgName =  pro.map(product => {
@@ -20,7 +21,7 @@ function Ca({pro, onPress}) {
  
       
         return <> 
-        <Pressable style={styles.itemCon} onPress={ () => {onPress(itemData.item)}}>
+        <Pressable style={[styles.itemCon, {      backgroundColor: active == itemData.item ? GlobalStyles.colors.orange400 : '#212529', }]} onPress={ () => {onPress(itemData.item)}}>
        
         <View style={styles.innerContainer}>
         <Text style={[styles.whiteText, {paddingHorizontal: 5}]}>{itemData.item}</Text>
@@ -37,7 +38,8 @@ function Ca({pro, onPress}) {
 
     return (
          <View style={{flexDirection: 'row'}}>
-       
+             
+
         <Pressable style={{ 
      height: 30,
      margin: 6,
@@ -45,7 +47,7 @@ function Ca({pro, onPress}) {
       borderRadius: 8,
       
      width: 60,
-  backgroundColor: '#212529', 
+  backgroundColor: active == 'all' ? GlobalStyles.colors.orange400 : '#212529', 
    
       }}  onPress={ () => {onPress('all')}}>
        
@@ -78,7 +80,6 @@ const styles = StyleSheet.create({
       marginTop: 8,
       margin: 6,
       borderRadius: 8,
-      backgroundColor: '#212529',
       
       color: 'white',
      flex: 1,

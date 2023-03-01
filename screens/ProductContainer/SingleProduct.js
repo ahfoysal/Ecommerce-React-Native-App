@@ -15,8 +15,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ToastManager, { Toast } from 'toastify-react-native'; 
 
 function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
-  // const [scrollToIndex, setScrollToIndex] = useState(0);
-  // const [ref, SetRef] =useState(null)
 
   const [isLoading, setLoading] = useState(true);
 const [variations , setVariations] = useState([]);
@@ -76,7 +74,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
 
         dataFetch()
 // const result = allProducts.filter(word => word.id == product.related_ids[0]);
-// console.log(result);
+// console.log(allProducts);
       }, [])
 
 
@@ -120,7 +118,8 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
     
  
             }
-            const page = Number(product.id/100)
+           
+            
     return (
       
          <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
@@ -142,10 +141,10 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
         
    <DescriptionContainer isDark={isDark} strippedString={strippedString} strippedString2={strippedString2}/>
      
-  <View style={styles.variationContainer}>
-  <Text style={styles.des}>You might also like</Text>
-         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-         {allProducts.slice((page-1) * 4, (page-1) * 4 + 4).map(item => {
+  {/* <View style={styles.variationContainer}>
+  <Text style={styles.des}>You might also like</Text> */}
+         {/* <View style={{flexDirection: 'row'}}>
+         {allProducts.map(item => {
             return  <Grid   key={item.id}
                    title={item.name} 
                    price={item.price}           
@@ -161,12 +160,16 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
 })}}               
                    />
           })}
-         </View>
+         </View> */}
 
-  </View>
+  {/* </View> */}
                 </ScrollView>   
-            
-      <AddToCartConatiner  pressHandler={pressHandler}/>  
+                <>
+                {variations.length > 0 &&    <AddToCartConatiner  pressHandler={pressHandler}/> } 
+                </>
+              {product.variations.length === 0 && <View>
+                  <AddToCartConatiner  pressHandler={pressHandler}/> 
+                </View> }
          </SafeAreaView>
        
     )

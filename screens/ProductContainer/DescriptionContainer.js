@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         marginHorizontal: 10,
         paddingHorizontal: 15,
-        paddingVertical: 15
+        paddingVertical: 15,
+        borderRadius: 8
       },
       title: {
         color: 'white',
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
         variationContainer: {
       padding: 15,
       paddingVertical: 15,
-      marginVertical: 10
+      marginVertical: 10,
+      borderRadius: 8
 
     },
     attSize: {

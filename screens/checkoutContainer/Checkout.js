@@ -1,17 +1,22 @@
-import * as React from 'react';
-import { useEffect } from "react";
-import {  Dimensions, FlatList, StyleSheet, Text, Button, View, Pressable, Image, ScrollView } from "react-native";
+import {   FlatList, StyleSheet } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import { GlobalStyles } from '../../util/styles';
-import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CartItemContainer from '../cartContainer/CartItemContainer';
 import Summray from './Summray';
+import ButtonContainer from './ButtonContainer';
+import DeliveryInfo from './DeliveryInformation';
+import { useState } from "react";
     
 
 
 
-function AnimeInfo({route, cart, navigation, isDark, setCart}) {
+function Checkout({route, cart, navigation, isDark, setCart}) {
+
+    const [name, setName] = useState('Customer Name');
+    const [email, setEmail] = useState('CustomerEmail@gmail.com');
+    const [phoneNumber, setPhoneNumber] = useState('0123456789');
+    const [address, setAddress] = useState('Customer Address');
 
 
 
@@ -34,7 +39,7 @@ function AnimeInfo({route, cart, navigation, isDark, setCart}) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
- const body1 = `{"payment_method":"cod" , ${cID} "payment_method_title":"Cash On Delivery" , "billing":{"first_name":"name","country": "BD","address_1":"address","phone":"015","email":"ahfoysal40@gmail.com"},"line_items":`
+ const body1 = `{"payment_method":"cod" , ${cID} "payment_method_title":"Cash On Delivery" , "billing":{"first_name":"${name}","country": "BD","address_1":"${address}","phone":"${phoneNumber}","email":"${email}"},"line_items":`
 const body2= `${newCart}}`
     const body3 = body1.concat(' ', body2);
 
@@ -52,10 +57,10 @@ const body2= `${newCart}}`
           console.log(rslt)
           
           WebBrowser.openBrowserAsync(`https://sslcommerz-gateway.vercel.app/ssl-request/${rslt.total}/${rslt.id}`)
-         
-          navigation.navigate('Home')
-          setCart([])
           
+          navigation.navigate('SingleOrder', {
+            orderID: rslt.id})
+          setCart([])
          
           })
         .catch(error => {
@@ -63,15 +68,9 @@ const body2= `${newCart}}`
           console.log('error', rslt)
          
         }); 
-
     console.log(body3)
-
-    }
-    
+    }   
     function renderPopularItem(itemData) {
-
-    
-      
         return (
             <CartItemContainer image={itemData.item.images[0].src}  price={itemData.item.price} regular_price={itemData.item.regular_price}
             sale_price={itemData.item.sale_price}
@@ -79,11 +78,13 @@ const body2= `${newCart}}`
         )
     }
     function summary(itemData) {
-
-    
-      
         return (
             <Summray total={total}/>
+        )
+    }
+    function Delivery(itemData) {
+        return (
+            <DeliveryInfo  name={name} setName={setName} email={email} setEmail={setEmail}  phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}  address={address} setAddress={setAddress} />
         )
     }
 
@@ -93,8 +94,7 @@ const body2= `${newCart}}`
       
         <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
         }]}>
-        
-     
+
 
         {cart.length > 0 && <>
                     <FlatList
@@ -102,27 +102,12 @@ const body2= `${newCart}}`
             keyExtractor={(item, index) => index}
             renderItem={renderPopularItem}
             ListFooterComponent={summary}
+            ListHeaderComponent={Delivery}
            
           />
-         
-            <View style={{justifyContent: 'space-between',  flexDirection: 'row' , margin: 10}}>
-            <View style={{justifyContent: 'space-between', marginHorizontal: 20}}>
-            <Text style={{color: GlobalStyles.colors.orange400, fontWeight: 'bold'}}>Total: {total}</Text>
-                <Text style={{color: GlobalStyles.colors.gray100, fontSize: 6}}>*Terms Conditions Applicable</Text>
-            
-
-            </View>
-            <Pressable    style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}} onPress={createOrder}>
-            <Text  style={{   padding: 10,
-            color: 'white',
-        textAlign: 'center',
-                fontWeight: 'bold'
-    }}>Place Order</Text>
-         </Pressable>
-            </View>
-                 </>
-                 
-                
+            <ButtonContainer total={total} createOrder={createOrder} />
+  
+                 </>          
                  }
 
                 
@@ -135,39 +120,6 @@ const styles = StyleSheet.create({
         flex: 1, 
         paddingTop: 20
       
-    },
-    buttons: {
-   
-        justifyContent: 'center ',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        padding: 15,
-        width: '100%',
-        backgroundColor: '#FF9900',
-        
-    },
-    innerContainer: {
-        flexDirection: 'row',
-        marginVertical: 6,
-        backgroundColor: GlobalStyles.colors.darkTheme100, 
-        height: 125,
-        // justifyContent: 'space-evenly',
-        alignItems: 'center'
-    },
-    summaryContainers: {
-        // flexDirection: 'row',
-        marginVertical: 10,
-        borderRadius: 8,
-        padding: 15,
-        
-        backgroundColor: GlobalStyles.colors.darkTheme100, 
-        // height: 125,
-       
-       
-        
-      
-       
     }
 })
-export default AnimeInfo
+export default Checkout

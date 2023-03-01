@@ -4,13 +4,13 @@ import { GlobalStyles } from "../util/styles";
 
 
 
-function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice}) {
+function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice, status}) {
   
     return (
 
         
         <View style={styles.itemCon} >  
-        <Pressable android_ripple={{color: '#ccc'}}  style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
+       {status === 'publish' && <Pressable android_ripple={{color: '#ccc'}}  style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
         onPress={onPress}
         >
      
@@ -47,7 +47,7 @@ function Grid ({title, imageUrl, price, onPress,category,salePrice, regularPrice
           </View>
         </View>
         </Pressable>
-       
+       } 
        
         </View>
         

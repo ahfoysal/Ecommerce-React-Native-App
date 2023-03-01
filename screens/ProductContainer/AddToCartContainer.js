@@ -5,7 +5,7 @@ import { GlobalStyles } from "../../util/styles"
 function Detail({pressHandler}) {
 return (
  
-         <Pressable    style={{backgroundColor: GlobalStyles.colors.orange200}} onPress={pressHandler}>
+         <Pressable    style={{backgroundColor: GlobalStyles.colors.orange400}} onPress={pressHandler}>
             <Text  style={{   padding: 15,
             color: 'white',
         textAlign: 'center',
