@@ -9,17 +9,18 @@ import Single from '../screens/ProductContainer/SingleProduct';
 import Cart from '../screens/cartContainer/Cart';
 import Checkout from '../screens/checkoutContainer/Checkout';
 import WishListScreen from '../screens/WishListScreen';
-import Login from '../screens/Login';
+import Login from '../screens/Account/Login';
 // import { useContext } from 'react';
 // import { WishListContext } from '../store/context/WishList';
 import { useSelector } from 'react-redux';
 import SingleOrder from '../screens/SingleOrder';
+import Account from '../screens/Account/Account';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
 
-function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDark}) {
+function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDark, isLoggedIn}) {
   // const wishListCtx = useContext(WishListContext)
   const wishListItems = useSelector(state => state.wishListItems.ids )
 
@@ -79,7 +80,7 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
           tabBarIcon: ({color, size}) => <Ionicons name='person-sharp' size={size} color={color} />,
        
         }}>
-        {(props) => <Login   {...props} />}
+        {(props) => <Account  isDark={isDark} isLoggedIn={isLoggedIn} {...props} />}
         </BottomTab.Screen>
         
         
@@ -120,6 +121,10 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
 
         <Stack.Screen  name="SingleOrder"  >
         {(props) => <SingleOrder  isDark={isDark} {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen  name="Login"  >
+        {(props) => <Login  isDark={isDark} {...props} />}
         </Stack.Screen>
 
       </Stack.Navigator>

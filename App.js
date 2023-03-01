@@ -13,6 +13,8 @@ export default function App({navigation}) {
 const [isLoading, setLoading] = useState(true);
 const [allProducts , setAllProducts] = useState([]);
 const [isDark , setIsDark] = useState(true);
+const [isLoggedIn , setIsLoggedIn ] = useState(true);
+
 
 
 
@@ -97,6 +99,7 @@ setLoading(false)
  cart={cart} 
  addToCart={addToCart} 
  isDark={isDark}
+ isLoggedIn={isLoggedIn}
  />
 
    {/* </WishListContextProvider> */}
