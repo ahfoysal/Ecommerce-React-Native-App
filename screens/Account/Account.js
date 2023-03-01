@@ -21,6 +21,13 @@ console.log('data')
 setUserInfo(data)
 setLoading(false)
 
+const order = await (
+    await fetch(
+      shopLink+`wp-json/wc/v3/orders`+`?`+key+'&per_page=100'
+    )
+  ).json();
+  console.log(order)
+
 };
 useEffect(() => {
         
