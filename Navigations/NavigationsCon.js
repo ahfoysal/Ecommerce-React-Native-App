@@ -15,6 +15,7 @@ import Login from '../screens/Account/Login';
 import { useSelector } from 'react-redux';
 import SingleOrder from '../screens/SingleOrder';
 import Account from '../screens/Account/Account';
+import OrderList from '../screens/OrderList';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
@@ -125,6 +126,10 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
 
         <Stack.Screen  name="Login"  >
         {(props) => <Login  isDark={isDark} {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen  name="OrderList"  >
+        {(props) => <OrderList  isDark={isDark} {...props} />}
         </Stack.Screen>
 
       </Stack.Navigator>

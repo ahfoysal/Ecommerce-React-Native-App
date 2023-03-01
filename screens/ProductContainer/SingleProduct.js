@@ -12,7 +12,7 @@ import VariationContainer from './VariationContainer'
 import DescriptionContainer from './DescriptionContainer'
 import AddToCartConatiner from './AddToCartContainer'
 import { SafeAreaView } from "react-native-safe-area-context";
-import ToastManager, { Toast } from 'toastify-react-native'; 
+ 
 
 function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
 
@@ -96,7 +96,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       // addToCart(product2)
       }
       const handleSubmit = async () => {
-        Toast.success('Added To Cart');
+      Alert.alert('Done', 'Item added to cart')
       };
     
 
@@ -124,7 +124,6 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       
          <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
          }]}>
-          <ToastManager   animationStyle='rightInOut' positionValue={200} width={350} position='bottom' style={{ fontSize: 2 ,backgroundColor: 'black',color: 'white' , marginTop: 20}}/>
      
                
            <ScrollView showsHorizontalScrollIndicator={false}
