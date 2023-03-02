@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Sending']);
 
 export default function App({navigation}) {
   const [cart , setCart] = useState([])

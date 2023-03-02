@@ -6,7 +6,7 @@ import { MaterialCommunityIcons  } from '@expo/vector-icons'
 import { useDispatch, useSelector } from "react-redux";
 import { addWishList, removeWishList } from "../../store/redux/wishList";
 import { GlobalStyles } from "../../util/styles";
-import Grid from "../../components/Grid";
+
 import Detail from "./DetailContainer";
 import VariationContainer from './VariationContainer'
 import DescriptionContainer from './DescriptionContainer'

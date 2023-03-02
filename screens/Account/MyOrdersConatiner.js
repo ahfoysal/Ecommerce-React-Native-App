@@ -26,34 +26,7 @@ function MyOrder({orders, navigation}) {
 
   <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
 
-        <Pressable  style={styles.inner} onPress={() =>    navigation.navigate('OrderList')}>
-{ ToPay?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 35,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
-       <Text > {ToPay?.length}
-       </Text>
-       </View>}
-        <Ionicons name="card-outline" size={30} color={GlobalStyles.colors.gray100} />
-        <Text style={styles.text}>To Pay  </Text>
-        </Pressable>
-
-        <Pressable style={styles.inner}>
-        { ToReceive?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 50,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
-       <Text > {ToReceive?.length}
-       </Text>
-       </View>}
-            <MaterialCommunityIcons name="truck-fast-outline" size={30} color={GlobalStyles.colors.gray100} />
-            <Text style={styles.text}>To Received</Text>
-         </Pressable>
-
-         <Pressable style={styles.inner}>
-         { Cancelled?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 43,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
-       <Text > {Cancelled?.length}
-       </Text>
-       </View>}
-         <MaterialCommunityIcons name="archive-remove-outline" size={30} color={GlobalStyles.colors.gray100}/>
-     <Text style={styles.text}>Cancelled</Text>
-     </Pressable>
-
-     <Pressable style={styles.inner}  >
+  <Pressable style={styles.inner}  onPress={() =>    navigation.navigate('OrderList', {itemId: 0, orders: orders })} >
      
      <Ionicons name="ios-receipt-outline" size={30} color={GlobalStyles.colors.gray100}/>
      { orders?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 43,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
@@ -63,6 +36,35 @@ function MyOrder({orders, navigation}) {
      <Text style={styles.text}>All Orders</Text>
 
      </Pressable>
+     
+  <Pressable  style={styles.inner} onPress={() =>    navigation.navigate('OrderList', {itemId: 1 , orders: orders})}>
+{ ToPay?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 35,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
+       <Text > {ToPay?.length}
+       </Text>
+       </View>}
+        <Ionicons name="card-outline" size={30} color={GlobalStyles.colors.gray100} />
+        <Text style={styles.text}>To Pay  </Text>
+        </Pressable>
+
+        <Pressable style={styles.inner} onPress={() =>    navigation.navigate('OrderList', {itemId: 2, orders: orders })}>
+        { ToReceive?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 50,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
+       <Text > {ToReceive?.length}
+       </Text>
+       </View>}
+            <MaterialCommunityIcons name="truck-fast-outline" size={30} color={GlobalStyles.colors.gray100} />
+            <Text style={styles.text}>To Received</Text>
+         </Pressable>
+
+         <Pressable style={styles.inner} onPress={() =>    navigation.navigate('OrderList', {itemId: 3 , orders: orders})}>
+         { Cancelled?.length > 0 && <View style={{ position: 'absolute', top: -4, left: 43,backgroundColor: GlobalStyles.colors.orange400, padding: 2,paddingRight: 5 , borderRadius: 25}}>
+       <Text > {Cancelled?.length}
+       </Text>
+       </View>}
+         <MaterialCommunityIcons name="archive-remove-outline" size={30} color={GlobalStyles.colors.gray100}/>
+     <Text style={styles.text}>Cancelled</Text>
+     </Pressable>
+
+     
 
       </View>
 

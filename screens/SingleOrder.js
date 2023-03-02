@@ -1,5 +1,6 @@
 
 
+import { openBrowserAsync } from "expo-web-browser";
 import { useEffect, useState } from "react";
 
 
@@ -17,7 +18,6 @@ import Summray from "./checkoutContainer/Summray";
 function SingleOrder({route, navigation, isDark}) {
     const [isLoading, setLoading] = useState(true);
     const [orderInfo, setOrderInfo] = useState({});
-    const [date, setDate] = useState('');
 
     const orderID = route.params.orderID
 
@@ -33,8 +33,7 @@ const data = await (
 console.log('data')
 setOrderInfo(data)
 setLoading(false)
-var date = new Date(data.date_created);
-setDate(date.toLocaleString())
+
 };
 useEffect(() => {
         
@@ -70,8 +69,8 @@ function Heders(itemData) {
  
              <View style={[styles.innerContainer]}> 
             <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.orange400, fontSize: 17  }}> Order #{orderInfo.id}</Text>
-            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.lightTheme, fontSize: 14  }}> Placed on {date}</Text>
-       
+            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.lightTheme, fontSize: 14  }}> Placed on {new Date(orderInfo.date_created).toLocaleString()}</Text>
+
              </View>
        </>
     )
@@ -101,14 +100,14 @@ function Footers(itemData) {
            
               
            {orderInfo.needs_payment && <View style={{  flexDirection: 'row' , margin: 10, justifyContent: 'flex-end'}}> 
-            <Pressable   style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8, marginHorizontal: 10}} >
+            <Pressable   style={{borderColor: GlobalStyles.colors.orange400 ,borderWidth: 1 , width: 140, borderRadius: 8, marginHorizontal: 10}} >
     <Text  style={{   padding: 8,
     color: 'white',
 textAlign: 'center',
         fontWeight: 'bold'
 }}>Cancel</Text>
  </Pressable>
- <Pressable   style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}} >
+ <Pressable onPress={() => openBrowserAsync(`https://sslcommerz-gateway.vercel.app/ssl-request/${orderInfo.total}/${orderInfo.id}`)}  style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}} >
     <Text  style={{   padding: 8,
     color: 'white',
 textAlign: 'center',

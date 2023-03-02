@@ -11,7 +11,7 @@ return (
  
  <View style={styles.container}>
        <View style={styles.innerContainer}>
-    <Image style={{height: '100%', width: 100 , marginHorizontal: 20}} source={{uri: image}}/>
+    <Image style={{height: '100%', width: 100 , marginHorizontal: 20}} source={{uri: image || 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'}}/>
     <View  style={{flex: 1, justifyContent: 'space-between'}}>
   
         <Text style={{color: 'white'}}>{name}</Text>

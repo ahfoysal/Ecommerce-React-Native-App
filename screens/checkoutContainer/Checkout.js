@@ -30,7 +30,7 @@ function Checkout({route, cart, navigation, isDark, setCart}) {
         const StringCart= JSON.stringify(cartItems);  
         const newItms = StringCart.replace (/"/g,'');
         const newCart = newItms.replace (/'/g,'"');
-        const cID = `"customer_id":"0"  ,`
+        const cID = `"customer_id":"36"  ,`
         
         key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
 
