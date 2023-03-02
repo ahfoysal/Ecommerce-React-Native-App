@@ -7,7 +7,7 @@ import { Pressable } from "react-native";
 import { GlobalStyles } from "../../util/styles";
 
 
-function CartItemContainer({image, name,  increase, decrease, quantity, item, price, sale_price, regular_price}) {
+function OrderItemContainer({image, name,  increase, decrease, quantity, item, price, sale_price, regular_price}) {
 return (
  
  <View style={styles.container}>
@@ -23,25 +23,16 @@ return (
 )
 }
 
-export default CartItemContainer
+export default OrderItemContainer
 
 const styles = StyleSheet.create({
     container : {
         flex: 1, 
-        // paddingTop: 20
+        // paddingTop: 20,
+        borderRadius: 8
       
     },
-    buttons: {
-   
-        justifyContent: 'center ',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        padding: 15,
-        width: '100%',
-        backgroundColor: '#FF9900',
-        
-    },
+    
     innerContainer: {
         // flexDirection: 'row',
         marginHorizontal: 5,   

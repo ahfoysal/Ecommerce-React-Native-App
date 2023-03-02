@@ -10,22 +10,22 @@ import Cart from '../screens/cartContainer/Cart';
 import Checkout from '../screens/checkoutContainer/Checkout';
 import WishListScreen from '../screens/WishListScreen';
 import Login from '../screens/Account/Login';
-// import { useContext } from 'react';
-// import { WishListContext } from '../store/context/WishList';
 import { useSelector } from 'react-redux';
 import SingleOrder from '../screens/SingleOrder';
 import Account from '../screens/Account/Account';
 import OrderList from '../screens/OrderListContainer/OrderList';
+import { useEffect, useState } from 'react';
+import { useContextS } from '../store/context/AllContext';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
 
-function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDark, isLoggedIn}) {
-  // const wishListCtx = useContext(WishListContext)
+function NavigationCon() {
+ 
   const wishListItems = useSelector(state => state.wishListItems.ids )
 
-
+  let { cart} =  useContextS();
 
   let Total = cart.map((qun) => qun.quantity)
   let sum = 0; 
@@ -45,44 +45,30 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
         }}>
             <BottomTab.Screen  name="Home"  options={{
               title: 'Home',
-              tabBarIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />,
-      
-           
-            }}> 
-            {(props) => <Home isLoading={isLoading} pro={allProducts} isDark={isDark} {...props} />}
-            
-            </BottomTab.Screen>
+              tabBarIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />
+              }}  component ={Home} /> 
+    
           
       
       
       
-            <BottomTab.Screen  name="Cart"    options={{
-          
+            <BottomTab.Screen  name="Cart"    options={{      
           tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="cart" size={size} color={color} />,
           tabBarBadge: sum > 0 ? sum : null,
-          tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}
-       
-        }}>
-        {(props) => <Cart  isDark={isDark} cart={cart} setCart={setCart}  {...props} />}
-        </BottomTab.Screen>
+          tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}}} component ={Cart} />
         
-        <BottomTab.Screen  name="Wish List"   options={{
-          
+        
+        <BottomTab.Screen  name="Wish List"   options={{ 
           tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="heart" size={size} color={color} />,
           tabBarBadge: wishListItems.length > 0 ? wishListItems.length : null,
           tabBarBadgeStyle: {backgroundColor: '#f7bc0c', marginHorizontal: 5}
+        }}  component={WishListScreen} />
+        
 
-        }}>
-        {(props) => <WishListScreen   {...props} />}
-        </BottomTab.Screen>
-
-        <BottomTab.Screen  name="Account"   options={{
-          
+        <BottomTab.Screen  name="Account"   options={{  
           tabBarIcon: ({color, size}) => <Ionicons name='person-sharp' size={size} color={color} />,
+       }} component={Account} />
        
-        }}>
-        {(props) => <Account  isDark={isDark} isLoggedIn={isLoggedIn} {...props} />}
-        </BottomTab.Screen>
         
         
       
@@ -90,6 +76,8 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
         )
       
       }
+
+      
     
     return (
         <NavigationContainer>
@@ -109,27 +97,22 @@ function NavigationCon({isLoading, allProducts, setCart , cart, addToCart, isDar
           const CatId = route.params.product.name
           return {
               title: CatId
-          }; }} 
-          >
-        {(props) => <Single addToCart={addToCart} cart={cart} isDark={isDark} allProducts={allProducts} {...props} />}
-        </Stack.Screen>
+          }; }} component={Single}   />
+       
         
        
         
-        <Stack.Screen  name="Checkout"  >
-        {(props) => <Checkout cart={cart} isDark={isDark} setCart={setCart} {...props} />}
-        </Stack.Screen>
+        <Stack.Screen  name="Checkout"  component={Checkout}  />
+       
 
-        <Stack.Screen  name="SingleOrder"  >
-        {(props) => <SingleOrder  isDark={isDark} {...props} />}
-        </Stack.Screen>
+        <Stack.Screen  name="SingleOrder"  component={SingleOrder} />
+     
 
-        <Stack.Screen  name="Login"  >
-        {(props) => <Login  isDark={isDark} {...props} />}
-        </Stack.Screen>
+        <Stack.Screen  name="Login" component={Login} />
+        
 
         <Stack.Screen  name="OrderList"  >
-        {(props) => <OrderList  isDark={isDark} {...props} />}
+        {(props) => <OrderList   {...props} />}
         </Stack.Screen>
 
       </Stack.Navigator>

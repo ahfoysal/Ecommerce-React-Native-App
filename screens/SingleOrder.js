@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 
 import { StyleSheet, Pressable, View, Text , FlatList } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useContextS } from "../store/context/AllContext";
 import { GlobalStyles } from "../util/styles"
 import CartItemContainer from "./cartContainer/CartItemContainer";
 import ButtonContainer from "./checkoutContainer/ButtonContainer";
@@ -15,7 +17,8 @@ import Summray from "./checkoutContainer/Summray";
 
 
 
-function SingleOrder({route, navigation, isDark}) {
+function SingleOrder({route, navigation}) {
+    let {  isDark } =  useContextS();
     const [isLoading, setLoading] = useState(true);
     const [orderInfo, setOrderInfo] = useState({});
 
@@ -85,7 +88,7 @@ function Footers(itemData) {
 }
 
     return (
-        <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
+        <SafeAreaView  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
         }]}>
             {isLoading ? <Text>Loading...</Text> : <>   
            
@@ -119,7 +122,7 @@ textAlign: 'center',
            
     </>
      }
-        </View>
+        </SafeAreaView>
     )
 }
 export default SingleOrder

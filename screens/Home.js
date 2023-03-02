@@ -7,10 +7,13 @@ import Allitems from "../components/AllItems";
 
 import { useState} from "react";
 import { GlobalStyles } from "../util/styles";
+import { useContextS } from "../store/context/AllContext";
 
 
 
-function Home({pro, isLoading, navigation, isDark }) {
+function Home({navigation}) {
+    let {  isLoading, isDark, allProducts } =  useContextS();
+
     const [activeCategory, setActiveCategory] = useState([])
     const [active, setActive] = useState('all')
 
@@ -23,9 +26,9 @@ function Home({pro, isLoading, navigation, isDark }) {
        
         setActive(id)
         if(id == 'all'){
-            return setActiveCategory(pro.slice(0,12))
+            return setActiveCategory(allProducts.slice(0,12))
         }
-        const cartItems = pro.map((cart)=> {
+        const cartItems = allProducts.map((cart)=> {
             return cart.categories.map(cat => (cart)).filter((val)=> {
               return val.categories[0].name === id
                   });          
@@ -45,8 +48,8 @@ function Home({pro, isLoading, navigation, isDark }) {
          <View style={{backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme, flex: 1, paddingHorizontal: 5, paddingBottom: 30}}>
              
 
-         <Category active={active}  setActive={setActive} pro={pro} onPress={gteProducts}/>
-         <Allitems   pro={activeCategory.length < 1 ?  pro.slice(0,12) : activeCategory} isLoading={isLoading} navigation={navigation}/>
+         <Category active={active}  setActive={setActive} pro={allProducts} onPress={gteProducts}/>
+         <Allitems   pro={activeCategory.length < 1 ?  allProducts.slice(0,12) : activeCategory} isLoading={isLoading} navigation={navigation}/>
          </View>
     )
 }

@@ -1,11 +1,14 @@
 import * as React from 'react';
 
 import {  FlatList, StyleSheet, Text, Button, View, Pressable } from "react-native";
+import { useContextS } from '../../store/context/AllContext';
 import { GlobalStyles } from '../../util/styles';
 import CartItemContainer from './CartItemContainer';
 
 
-function AnimeInfo({route, cart, navigation, setCart, isDark}) {
+function AnimeInfo({route, navigation}) {
+    let {  cart, setCart, isDark } =  useContextS();
+
     function pressHandler(){
         
           navigation.navigate('Checkout')

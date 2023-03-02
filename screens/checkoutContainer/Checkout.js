@@ -6,18 +6,27 @@ import CartItemContainer from '../cartContainer/CartItemContainer';
 import Summray from './Summray';
 import ButtonContainer from './ButtonContainer';
 import DeliveryInfo from './DeliveryInformation';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContextS } from "../../store/context/AllContext";
+import { useIsFocused } from "@react-navigation/native";
     
 
 
 
-function Checkout({route, cart, navigation, isDark, setCart}) {
+function Checkout({route, navigation}) {
+    const isFocused = useIsFocused();
+    let {  cart,  isDark, setCart } =  useContextS();
 
     const [name, setName] = useState('Customer Name');
     const [email, setEmail] = useState('CustomerEmail@gmail.com');
     const [phoneNumber, setPhoneNumber] = useState('0123456789');
     const [address, setAddress] = useState('Customer Address');
 
+useEffect(() => {
+  
+  if(isFocused && cart.length < 1){navigation.navigate('Home') 
+  console.log('hi')}
+}, [navigation, isFocused])
 
 
 

@@ -12,9 +12,12 @@ import VariationContainer from './VariationContainer'
 import DescriptionContainer from './DescriptionContainer'
 import AddToCartConatiner from './AddToCartContainer'
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useContextS } from "../../store/context/AllContext";
  
 
-function AnimeInfo({route, navigation, addToCart, cart, isDark, allProducts}) {
+function AnimeInfo({route, navigation}) {
+
+  let {   addToCart, cart, isDark, allProducts } =  useContextS();
 
   const [isLoading, setLoading] = useState(true);
 const [variations , setVariations] = useState([]);
@@ -96,7 +99,15 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       // addToCart(product2)
       }
       const handleSubmit = async () => {
-      Alert.alert('Done', 'Item added to cart')
+        Alert.alert('Success', 'Item added to cart.', [
+          {text: 'Continue Shopping', onPress: () => console.log('Continue Shopping')},
+          {
+            text: 'View Cart',
+            onPress: () => navigation.navigate('Cart'),
+            style: 'cancel',
+          },
+       
+        ]);
       };
     
 

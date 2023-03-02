@@ -6,12 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable } from "react-native";
 
 
-function CartItemContainer({image, name,  increase, decrease, quantity, item, price, sale_price, regular_price}) {
+function CartItemContainer({image, name,  increase, decrease, quantity, item, price, sale_price, regular_price, navigation}) {
 return (
  
  <View style={styles.container}>
        <View style={styles.innerContainer}>
-    <Image style={{height: '100%', width: 100 , marginHorizontal: 20}} source={{uri: image || 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'}}/>
+    <Image onPress={() => console.log('ok')} style={{height: '100%', width: 100 , marginHorizontal: 20}} source={{uri: image || 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'}}/>
     <View  style={{flex: 1, justifyContent: 'space-between'}}>
   
         <Text style={{color: 'white'}}>{name}</Text>
@@ -25,8 +25,9 @@ return (
            {increase ? <Pressable style={{padding: 5, justifyContent: 'flex-end', backgroundColor: GlobalStyles.colors.darkTheme}} onPress={ () => {increase(item)} } >
          <Ionicons name='add' size={18}  color={GlobalStyles.colors.orange200} />
          </Pressable> : <View> 
-         <Text style={{color: 'white', fontSize: 12, textAlign: 'right'}}>Quantity:{quantity}</Text>
-         <Text style={{color: 'white', fontSize: 14, textAlign: 'right'}}>Subtotal:{quantity * price}</Text></View>}
+        {quantity > 0 && <Text style={{color: 'white', fontSize: 12, textAlign: 'right'}}>Quantity:{quantity}</Text> }
+        {quantity > 0 && <Text style={{color: 'white', fontSize: 14, textAlign: 'right'}}>Subtotal:{quantity * price}</Text>}
+         </View>}
       {increase &&   <Pressable style={{padding: 5, justifyContent: 'flex-end', backgroundColor: GlobalStyles.colors.darkTheme}} >
          <Text style={{color: 'white', marginHorizontal: 10, fontSize: 16}} >{quantity}</Text>
          </Pressable>}

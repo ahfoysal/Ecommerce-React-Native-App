@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../util/styles";
 
-function LoginButtonContainer() {
+function LoginButtonContainer({navigation}) {
     
     
     return (
 
         <View style={[styles.innerContainer, {backgroundColor:   GlobalStyles.colors.orange400, justifyContent: 'center'  }]}> 
-            <Pressable style={{backgroundColor: GlobalStyles.colors.lightTheme, borderRadius: 8, marginVertical: 40}}>
+            <Pressable onPress={() => navigation.navigate('Login')} style={{backgroundColor: GlobalStyles.colors.lightTheme, borderRadius: 8, marginVertical: 40}}>
         <Text  style={{paddingVertical: 20, paddingHorizontal: 20, color: GlobalStyles.colors.orange400, fontWeight: 'bold',
         fontSize: 15
          }}>LOGIN / SIGNUP</Text>

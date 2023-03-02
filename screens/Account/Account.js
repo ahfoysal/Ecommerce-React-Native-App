@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useContextS } from "../../store/context/AllContext";
 import { GlobalStyles } from "../../util/styles";
 import LoginButtonContainer from "./LogicButtonContainer";
 import MyOrder from "./MyOrdersConatiner";
 import UserInfoContainer from "./UserInfoContainer";
 
-function Account({navigation, isDark, isLoggedIn}) {
+function Account({navigation }) {
+  let {  isDark , isLoggedIn} =  useContextS();
     const [isLoading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
     const [orders, setOrders] = useState({});
@@ -44,7 +46,7 @@ useEffect(() => {
         <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
         }]}>
       {isLoading ? <></> : <>
-      {isLoggedIn ? <UserInfoContainer userInfo={userInfo}  orders={orders.length}/> : <LoginButtonContainer />}
+      {isLoggedIn ? <UserInfoContainer userInfo={userInfo}  orders={orders.length}/> : <LoginButtonContainer navigation={navigation} />}
           <MyOrder navigation={navigation} orders={orders} />
       </>}
           </View>

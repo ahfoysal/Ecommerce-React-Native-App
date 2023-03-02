@@ -1,13 +1,11 @@
 import { Text } from "react-native";
+import { useContextS } from "../../store/context/AllContext";
 
 function Login({navigation}) {
-    
+    let {  isDark } =  useContextS();
     
     return (
-        <Text onPress={() =>    navigation.navigate('SingleOrder', {
-            orderID: '1572',
-           
-          })}>Login</Text>
+        <Text>{isDark ?  'hi' : 'hello'}</Text>
     )
 }
 export default Login
