@@ -46,7 +46,7 @@ useEffect(() => {
   }
     dataFetch()
   
-  }, [isFocused, dataFetch])
+  }, [isFocused])
     
     return (
         <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme

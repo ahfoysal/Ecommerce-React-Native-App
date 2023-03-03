@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useContextS } from '../../store/context/AllContext';
@@ -22,7 +22,34 @@ const renderTabBar = props => (
 const OrderList = ({navigation ,route}) => {
   let {  isDark } =  useContextS();
   const open = route.params.itemId
-  const orders = route.params.orders
+  // const orders = route.params.orders
+  const [orders, setOrders] =useState([])
+  const [isLoading, setIsLoading] =useState(false)
+
+  let shopLink = 'https://shop.abusayeeed.xyz/wp/'
+  key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+  const dataFetch = async () => {
+  
+  
+  const order = await (
+      await fetch(
+        shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
+      )
+    ).json();
+    console.log(order.length)
+    setOrders(order)
+    setIsLoading(true)
+    
+  
+  };
+  useEffect(() => {
+          
+  
+      dataFetch()
+    
+    }, [])
+
+
 
 
   const payNeed = orders.filter(order => {
@@ -128,12 +155,12 @@ const OrderList = ({navigation ,route}) => {
     <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
     }]}>
    
-    <TabView
+    {isLoading ?  <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
       renderTabBar={renderTabBar}
-    />
+    /> : <Text style={{color: 'white'}}>Loading</Text>}
     </View>
   );
 };
