@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useContextS } from "../../store/context/AllContext";
@@ -7,6 +8,7 @@ import MyOrder from "./MyOrdersConatiner";
 import UserInfoContainer from "./UserInfoContainer";
 
 function Account({navigation }) {
+  const isFocused = useIsFocused();
   let {  isDark , isLoggedIn} =  useContextS();
     const [isLoading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState({});
@@ -38,9 +40,13 @@ const order = await (
 };
 useEffect(() => {
         
+  if(isFocused) {
+    dataFetch()
+    console.log('refresh')
+  }
     dataFetch()
   
-  }, [])
+  }, [isFocused, dataFetch])
     
     return (
         <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
