@@ -16,6 +16,7 @@ import Account from '../screens/Account/Account';
 import OrderList from '../screens/OrderListContainer/OrderList';
 import { useEffect, useState } from 'react';
 import { useContextS } from '../store/context/AllContext';
+import { GlobalStyles } from '../util/styles';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
@@ -108,8 +109,10 @@ function NavigationCon() {
         <Stack.Screen  name="SingleOrder"  component={SingleOrder} />
      
 
-        <Stack.Screen  name="Login" component={Login} />
-        
+       
+        <Stack.Group screenOptions={{presentation: 'modal' ,headerStyle: {backgroundColor: GlobalStyles.colors.orange400},  }}  >
+        <Stack.Screen  name="Login"   component={Login}  />
+        </Stack.Group>
 
         <Stack.Screen  name="OrderList"  >
         {(props) => <OrderList   {...props} />}

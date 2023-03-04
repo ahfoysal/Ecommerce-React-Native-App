@@ -12,12 +12,16 @@
 
         Q>>/}9xTmz>JgY|
 
-https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=test1@gmail.com&password=test1234&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
+https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=test1@gmail.com&password=test1234&user_login=hello&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
 
 
 https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&email=foysal21@gmail.com&password=new1234&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
 
 
+
+https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=hello&password=test1234&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
+
+https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=test2@gmail.com&password=test1234&user_login=hello&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee
 const object =  jwt_decode(token);
 
 
