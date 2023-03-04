@@ -59,7 +59,7 @@ const body2= `${newCart}}`
         body: body1.concat(' ', body2),
         redirect: 'follow'
       };
-      fetch(`https://shop.abusayeeed.xyz/wp/wp-json/wc/v3/orders?`+key, requestOptions)
+      fetch(`https://sslcommerz-gateway-yjsc.vercel.app/post`, requestOptions)
         .then(response => response.json())
         .then(result => {
           const rslt = result;

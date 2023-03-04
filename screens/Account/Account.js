@@ -14,13 +14,15 @@ function Account({navigation }) {
     const [userInfo, setUserInfo] = useState({});
     const [orders, setOrders] = useState({});
 
-    
+    let StoreLink = `https://sslcommerz-gateway-yjsc.vercel.app/shop`
     let shopLink = 'https://shop.abusayeeed.xyz/wp/'
 key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
 const dataFetch = async () => {
 const data = await (
   await fetch(
-    shopLink+`wp-json/wc/v3/customers/36`+`?`+key
+    // shopLink+`wp-json/wc/v3/customers/36`+`?`+key
+    `${StoreLink}/customers-36/&per_page=100`
+
   )
 ).json();
 
@@ -30,7 +32,9 @@ setUserInfo(data)
 
 const order = await (
     await fetch(
-      shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
+      // shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
+      `${StoreLink}/orders/&per_page=100&customer=36`
+
     )
   ).json();
   console.log(order.length)

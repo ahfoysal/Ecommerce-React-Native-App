@@ -24,12 +24,15 @@ function SingleOrder({route, navigation}) {
 
     const orderID = route.params.orderID
 
+    let StoreLink = `https://sslcommerz-gateway-yjsc.vercel.app/shop`
     let shopLink = 'https://shop.abusayeeed.xyz/wp/'
 key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
 const dataFetch = async () => {
 const data = await (
   await fetch(
-    shopLink+`wp-json/wc/v3/orders/`+orderID+`?`+key+'&per_page=100'
+    // shopLink+`wp-json/wc/v3/orders/`+orderID+`?`+key+'&per_page=100'
+    `${StoreLink}/orders-${orderID}/&per_page=100`
+
   )
 ).json();
 
