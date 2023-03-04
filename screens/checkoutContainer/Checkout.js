@@ -45,14 +45,14 @@ useEffect(() => {
 
         
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    
 
  const body1 = `{"payment_method":"cod" , ${cID} "payment_method_title":"Cash On Delivery" , "billing":{"first_name":"${name}","country": "BD","address_1":"${address}","phone":"${phoneNumber}","email":"${email}"},"line_items":`
 const body2= `${newCart}}`
     const body3 = body1.concat(' ', body2);
 
-
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,

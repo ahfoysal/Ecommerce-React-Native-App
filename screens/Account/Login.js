@@ -1,7 +1,6 @@
 
 import React, {  useState } from 'react';
 import {  Keyboard, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useContextS } from '../../store/context/AllContext';
 import { GlobalStyles } from '../../util/styles';
 import { Input } from '@rneui/themed';
@@ -14,81 +13,37 @@ const Login = ({navigation ,route}) => {
     let {  isDark } =  useContextS();
     const [loading, setLoading] = useState(false)
     const [loginEmail, setLoginEmail] = useState('');
+    const [password, setPassword] = useState('');
 
 
+
+
+    function LoginHandle() {
+      console.log(loginEmail)
+      console.log(password)
+      setLoading(true)
+      // setLoginEmail(enteredText)
+      fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=${loginEmail}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+  method: "POST",
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  }
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+    }
  
-  const BUTTON = ({children}) => (    
-                      <Pressable    style={{backgroundColor: GlobalStyles.colors.orange400 , width: 200, borderRadius: 8}} onPress={() => navigation.navigate('Home')}>
-              <Text  style={{   padding: 10,
-              color: 'white',
-          textAlign: 'center',
-                  fontWeight: 'bold'
-      }}>{children}</Text>
-           </Pressable>
-  );
+  
 
-function LoginHandle() {
-  console.log("Pressed")
-  setLoading(true)
-}
+
 function SignUpHandler() {}
 
 
-  const LoginFunction = () => (
-    <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-   
-    <View style={[styles.scene]}>
-    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Welcome Back</Text>
-    <Text  style={{    color: 'white', fontSize: 12, margin: 10}}>Login with your email and password.</Text>
-
-        <Input    
-      placeholder='Email'
-      onChangeText={value => setLoginEmail({ comment: value })}
-        />
-       
-
-    <Input placeholder="Password"
-  
-     secureTextEntry={true} />
-     <View style={{alignItems: 'center'}}>
-    {/* <BUTTON>LOGIN</BUTTON> */}
-    <Button
-    // loadingStyle={}
-    buttonStyle={{backgroundColor: GlobalStyles.colors.orange400, borderRadius: 8, paddingHorizontal: 80}}
-  title="LOGIN"
-  onPress={LoginHandle}
-  loading={loading}
-/>
-    </View>
-    </View>
- 
-    </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
-  );
-  
- 
-  const SignUpFunction = () => (
-    <View style={[styles.scene]} >
-     <BUTTON>SIGNUP</BUTTON>
-    </View>
-  );
 
    
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'first', title: 'Login' },
-    { key: 'second', title: 'SignUp' },
-   
-  ]);
 
 
 
-  const renderScene = SceneMap({
-    first: LoginFunction,
-    second: SignUpFunction,
-   
-  });
 
   return (
    
@@ -96,15 +51,39 @@ function SignUpHandler() {}
     }]}>
      
    
-     <TabView style={{flex: 1}}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={renderTabBar}
-      // inactiveColor={'rgb(168,170,199)'}
-    /> 
+     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+   
+    <View style={[styles.scene]}>
+    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Welcome Back</Text>
+    <Text  style={{    color: 'white', fontSize: 12, margin: 10}}>Login with your email and password.</Text>
+
+        <Input     
+      placeholder='Email'
+      onChangeText={(value) => setLoginEmail(value)}
+      value={loginEmail}
+      inputStyle={{color: 'white'}}
+
+        />
+       
+
+    <Input placeholder="Password"
+      onChangeText={(value) => setPassword(value)}
+      value={password}
+      inputStyle={{color: 'white'}}
+     secureTextEntry={true} />
+     <View style={{alignItems: 'center'}}>
+    <Button
+    buttonStyle={{backgroundColor: GlobalStyles.colors.orange400, borderRadius: 8, paddingHorizontal: 80}}
+  title="LOGIN"
+  onPress={LoginHandle}
+  loading={loading}
+/>
+    </View>
+    </View>
     
-  
+     </TouchableWithoutFeedback>
+     </KeyboardAvoidingView>   
     </View>
 
   );
@@ -152,13 +131,3 @@ innerContainer: {
 });
 
 export default Login;
-
-const renderTabBar = props => (
-    <TabBar
-      {...props}
-      indicatorStyle={styles.indicator}
-      style={styles.tabBar}
-      tabStyle={styles.tabStyle}
-      labelStyle={styles.labelStyle}
-    />
-  );

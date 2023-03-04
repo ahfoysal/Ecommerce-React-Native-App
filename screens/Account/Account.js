@@ -29,6 +29,7 @@ const data = await (
 console.log('data')
 setUserInfo(data)
 
+// setLoading(false)
 
 const order = await (
     await fetch(
