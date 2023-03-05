@@ -3,10 +3,11 @@
 import { Pressable } from "react-native"
 import { Text, View } from "react-native"
 import { GlobalStyles } from "../../util/styles"
+import { Button } from 'react-native-elements';
 
 
 
-function ButtonContainer({createOrder, total }) {
+function ButtonContainer({createOrder, total, isClicked }) {
 return (
  
     
@@ -17,13 +18,13 @@ return (
     
 
     </View>
-    <Pressable    style={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}} onPress={createOrder}>
-    <Text  style={{   padding: 10,
-    color: 'white',
-textAlign: 'center',
-        fontWeight: 'bold'
-}}>Place Order</Text>
- </Pressable>
+    <Button
+  title="Place Order"
+  onPress={createOrder}
+  loading={isClicked}
+  titleStyle={{fontSize: 14, fontWeight: 500}}
+  buttonStyle={{backgroundColor: GlobalStyles.colors.orange400 , width: 140, borderRadius: 8}}
+/>
     </View>
      
 )

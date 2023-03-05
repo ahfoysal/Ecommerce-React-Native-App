@@ -9,16 +9,17 @@ import DeliveryInfo from './DeliveryInformation';
 import { useEffect, useState } from "react";
 import { useContextS } from "../../store/context/AllContext";
 import { useIsFocused } from "@react-navigation/native";
+
     
 
 
 
 function Checkout({route, navigation}) {
     const isFocused = useIsFocused();
-    let {  cart,  isDark, setCart } =  useContextS();
-
-    const [name, setName] = useState('Customer Name');
-    const [email, setEmail] = useState('CustomerEmail@gmail.com');
+    let {  cart,  isDark, setCart, userInfo, isLoggedIn } =  useContextS();
+    const [isClicked, setIsClicked] = useState(false);
+    const [name, setName] = useState(isLoggedIn ? userInfo.username : 'customer name');
+    const [email, setEmail] = useState( isLoggedIn ? userInfo.email : 'CustomerEmail@gmail.com');
     const [phoneNumber, setPhoneNumber] = useState('0123456789');
     const [address, setAddress] = useState('Customer Address');
 
@@ -33,13 +34,14 @@ useEffect(() => {
 
     const total = cart.reduce((total, prd) => total + prd.price * prd.quantity , 0)
     const createOrder = () => {
-        console.log('prrssed')
+        setIsClicked(true)
+        // console.log('prrssed')
        
         const cartItems = cart.map((cart) => `{'product_id': ${cart.id},'quantity': ${cart.quantity}}` );
         const StringCart= JSON.stringify(cartItems);  
         const newItms = StringCart.replace (/"/g,'');
         const newCart = newItms.replace (/'/g,'"');
-        const cID = `"customer_id":"36"  ,`
+        const cID = `"customer_id":"${isLoggedIn ? userInfo.id : 0}"  ,`
         
 
         
@@ -69,11 +71,13 @@ const body2= `${newCart}}`
           navigation.navigate('SingleOrder', {
             orderID: rslt.id})
           setCart([])
+          setIsClicked(false)
          
           })
         .catch(error => {
           const rslt = error;
           console.log('error', rslt)
+          setIsClicked(false)
          
         }); 
     console.log(body3)
@@ -113,7 +117,7 @@ const body2= `${newCart}}`
             ListHeaderComponent={Delivery}
            
           />
-            <ButtonContainer total={total} createOrder={createOrder} />
+            <ButtonContainer total={total} createOrder={createOrder}  isClicked={isClicked}/>
   
                  </>          
                  }

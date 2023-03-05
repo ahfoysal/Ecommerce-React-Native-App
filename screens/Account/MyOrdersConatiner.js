@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 function MyOrder({orders, navigation}) {
 
+  
        const ToPay = orders?.map((all) => {
             return all?.needs_payment })?.filter(word => word == true)
 

@@ -1,10 +1,11 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState, useContext } from "react";
-
+import jwt_decode from "jwt-decode";
 
 
 const contextProviderS = createContext();
 
-export function ContextProviderS({ children }) {
+export function ContextProviderS({ children, navigation }) {
   
    
     const [cart , setCart] = useState([])
@@ -12,8 +13,9 @@ export function ContextProviderS({ children }) {
     const [isLoading, setLoading] = useState(true);
     const [allProducts , setAllProducts] = useState([]);
     const [isDark , setIsDark] = useState(true);
-    const [isLoggedIn , setIsLoggedIn ] = useState(false);
-    const [token , setToken] = useState('tokens');
+    const [isLoggedIn , setIsLoggedIn ] = useState(true);
+    const [userInfo , setUserInfo] = useState({});
+
    
 
 
@@ -44,9 +46,43 @@ export function ContextProviderS({ children }) {
         // console.log(newCart)
           
     }
+       const Store = async (jwt) => {
+      try {
+        await AsyncStorage.setItem(
+          '@MySuperStore:key',
+          jwt,
+        );
+      } catch (error) {
+        // Error saving data
+      }
+    }
+    const isLoggedInCheck = async () => {
+      
+        try {
+          const value = await AsyncStorage.getItem('@MySuperStore:key');
+          if (value === null){return setIsLoggedIn(false)}
+          if (value !== null) {
+            // We have data!!
+            console.log(value);
+            try {
+              const data = jwt_decode(value);
+              console.log(data)
+              setUserInfo(data)
+              // valid token format
+            } catch(error) {
+              // invalid token format
+            }
+            setIsLoggedIn(true)
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      
+    }
 
     useEffect(() => {
           
+      isLoggedInCheck()
       dataFetch()
     
     }, [])
@@ -65,17 +101,19 @@ export function ContextProviderS({ children }) {
     setAllProducts(data)
     setLoading(false)
     };
+    
+    
+ 
      
   
-
-
+    
 
 
 
     return(  
-    <contextProviderS.Provider value={{  addToCart, cart ,setCart , isLoading,   setLoading, allProducts, 
+    <contextProviderS.Provider value={{   addToCart, cart ,setCart , isLoading,   setLoading, allProducts, 
                                            setAllProducts, isDark,   setIsDark, isLoggedIn , setIsLoggedIn,
-                                           token, setToken   }}>{children}</contextProviderS.Provider>)
+                                           setUserInfo, userInfo       }}>{children}</contextProviderS.Provider>)
     ;
 
 }

@@ -21,7 +21,8 @@ export const GlobalStyles = {
       text500: '#f7bc0c',
       pink200: '#dc143c',
       orange200: '#FF9900',
-      orange400: '#F85606'
+      orange400: '#F85606',
+      blue800: '#1A1A2C',
 
     },
   };

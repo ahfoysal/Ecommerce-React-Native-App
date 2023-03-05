@@ -5,14 +5,14 @@ import { GlobalStyles } from "../../util/styles";
 function UserInfoContainer({userInfo, orders}) {
     const wishListItems = useSelector(state => state.wishListItems.ids )
 
-    
+    console.log(userInfo)
     return (
         
 
         <View style={[styles.innerContainer, {backgroundColor:   GlobalStyles.colors.orange400 }]}> 
             <View style={{flexDirection: 'row', marginTop: 20}}>
                 <Image style={{height: 40, width: 40 , marginHorizontal: 20, borderRadius: 25}} source={{uri: userInfo?.avatar_url}}/>
-                    <Text style={{fontSize: 16, color: GlobalStyles.colors.lightTheme, fontWeight: 'bold',  paddingVertical: 10}}>{userInfo.username}</Text>
+                    <Text style={{fontSize: 16, color: GlobalStyles.colors.lightTheme, fontWeight: 'bold',  paddingVertical: 10}}>{userInfo?.username}</Text>
             </View>
             <View style={{flexDirection: 'row', margin: 10, justifyContent: 'space-around', marginTop: 20}}>
            <View>

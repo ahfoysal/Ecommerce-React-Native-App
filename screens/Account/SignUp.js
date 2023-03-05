@@ -13,12 +13,14 @@ import jwt_decode from "jwt-decode";
 
 
 
-const Login = ({navigation ,route}) => {
+const SignUp = ({navigation ,route}) => {
     let {  isDark, setUserInfo , setIsLoggedIn } =  useContextS();
     const [loading, setLoading] = useState(false)
-    const [loginEmail, setLoginEmail] = useState('hello');
-    const [password, setPassword] = useState('test1234');
+    const [loginEmail, setLoginEmail] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [err, setErr] = useState('');
+    const [success, setSuccess] = useState("");
 
 
     const Store = async (jwt) => {
@@ -33,13 +35,9 @@ const Login = ({navigation ,route}) => {
     }
 
     const  LoginHandle = () => {
-      if(!loginEmail){
-        return setErr('Please enter email')}
-            if(!password){
-                return setErr('Please enter password')}
       setErr('')
-      setLoading(true)
-      fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=${loginEmail}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+      
+      fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=${userName}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
   method: "POST",
   headers: {
     "Content-type": "application/json; charset=UTF-8"
@@ -71,6 +69,38 @@ const Login = ({navigation ,route}) => {
     console.log(json)})
     }
 
+    const signUpHandler = () => {
+        setLoading(true)
+        if(!userName){
+            return setErr('Please enter username')}
+        if(!loginEmail){
+            return setErr('Please enter email')}
+                if(!password){
+                    return setErr('Please enter password')}
+        fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=${loginEmail}&password=${password}&user_login=${userName}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          })
+            .then((response) => response.json())
+            .then((json) =>{
+              if(json.success === false){setErr(json.data.message)
+                setSuccess('')
+                setLoading(false)
+              }
+              if(json.success === true){
+                console.log(json)
+                setErr('')
+                setSuccess(json.message)
+                LoginHandle()
+                setLoading(false)
+              
+              
+              }
+              console.log(json)});
+    }
+
   return (
    
     <View  style={[styles.container, {backgroundColor: isDark ? GlobalStyles.colors.darkTheme : GlobalStyles.colors.lightTheme
@@ -81,14 +111,19 @@ const Login = ({navigation ,route}) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
    
     <View style={[styles.scene]}>
-    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Welcome Back </Text>
-    <Text  style={{    color: 'white', fontSize: 12, margin: 10}}>Login with your email and password.</Text>
+    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Create your Account </Text>
+    <Text  style={{    color: 'white', fontSize: 12, margin: 10}}>Create your Account with your username,  email and password.</Text>
    {err && <Text  style={{    color: 'red', fontSize: 12, margin: 10}}>{err}</Text>}
 
+   <Input    placeholder='User Name'
+      onChangeText={(value) => setUserName(value)}
+      value={userName}
+      inputStyle={{color: 'white'}} />
         <Input     
       placeholder='Email'
       onChangeText={(value) => setLoginEmail(value)}
       value={loginEmail}
+      keyboardType='email-address'
       inputStyle={{color: 'white'}}
 
         />
@@ -102,15 +137,9 @@ const Login = ({navigation ,route}) => {
      {/* <View style={{alignItems: 'center'}}> */}
     <Button
     buttonStyle={{backgroundColor: GlobalStyles.colors.orange400, borderRadius: 8, marginTop: 20}}
-  title="LOGIN"
-  onPress={() => LoginHandle()}
-  loading={loading}
-/>
-<Button
-    buttonStyle={{backgroundColor: GlobalStyles.colors.darkTheme, borderRadius: 8, marginTop: 20}}
   title="SIGN UP"
-  onPress={() => navigation.navigate('SignUp')}
- 
+  onPress={signUpHandler}
+  loading={loading}
 />
     {/* </View> */}
     </View>
@@ -163,4 +192,4 @@ innerContainer: {
 }
 });
 
-export default Login;
+export default SignUp;

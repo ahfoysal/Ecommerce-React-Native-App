@@ -9,6 +9,7 @@ import RenderPopularItem from './singleProvider';
 
 
 
+
 const renderTabBar = props => (
   <TabBar
     {...props}
@@ -20,7 +21,7 @@ const renderTabBar = props => (
 );
 
 const OrderList = ({navigation ,route}) => {
-  let {  isDark } =  useContextS();
+  let {  isDark, userInfo } =  useContextS();
   const open = route.params.itemId
   // const orders = route.params.orders
   const [orders, setOrders] =useState([])
@@ -33,7 +34,7 @@ const OrderList = ({navigation ,route}) => {
   
   const order = await (
       await fetch(
-        shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
+        shopLink+`wp-json/wc/v3/orders`+`?customer=${userInfo.id}&`+key+'&per_page=100'
         // `${StoreLink}/orders/&per_page=100&customer=36`
 
 
