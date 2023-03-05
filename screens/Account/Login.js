@@ -30,7 +30,16 @@ const Login = ({navigation ,route}) => {
   }
 })
   .then((response) => response.json())
-  .then((json) => console.log(json));
+  .then((json) => {
+    if(json.success === false){ 
+      console.log(json.data.message)
+      setLoading(false)}
+        if(json.success === true){
+          console.log(json)
+        
+        
+        }
+    console.log(json)})
     }
  
   
