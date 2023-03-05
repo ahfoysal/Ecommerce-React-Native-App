@@ -13,6 +13,7 @@ export function ContextProviderS({ children }) {
     const [allProducts , setAllProducts] = useState([]);
     const [isDark , setIsDark] = useState(true);
     const [isLoggedIn , setIsLoggedIn ] = useState(false);
+    const [token , setToken] = useState('');
    
 
 
