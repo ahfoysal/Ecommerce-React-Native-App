@@ -13,7 +13,7 @@ export function ContextProviderS({ children }) {
     const [allProducts , setAllProducts] = useState([]);
     const [isDark , setIsDark] = useState(true);
     const [isLoggedIn , setIsLoggedIn ] = useState(false);
-    const [token , setToken] = useState('');
+    const [token , setToken] = useState('tokens');
    
 
 
@@ -73,7 +73,9 @@ export function ContextProviderS({ children }) {
 
 
     return(  
-    <contextProviderS.Provider value={{  addToCart, cart ,setCart , isLoading,   setLoading, allProducts, setAllProducts, isDark,   setIsDark, isLoggedIn , setIsLoggedIn   }}>{children}</contextProviderS.Provider>)
+    <contextProviderS.Provider value={{  addToCart, cart ,setCart , isLoading,   setLoading, allProducts, 
+                                           setAllProducts, isDark,   setIsDark, isLoggedIn , setIsLoggedIn,
+                                           token, setToken   }}>{children}</contextProviderS.Provider>)
     ;
 
 }

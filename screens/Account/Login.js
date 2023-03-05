@@ -10,7 +10,7 @@ import { Button } from 'react-native-elements';
 
 
 const Login = ({navigation ,route}) => {
-    let {  isDark } =  useContextS();
+    let {  isDark, token } =  useContextS();
     const [loading, setLoading] = useState(false)
     const [loginEmail, setLoginEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -64,7 +64,7 @@ function SignUpHandler() {}
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
    
     <View style={[styles.scene]}>
-    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Welcome Back</Text>
+    <Text  style={{    color: 'white',fontWeight: 'bold', fontSize: 20, margin: 10}}>Welcome Back {token}</Text>
     <Text  style={{    color: 'white', fontSize: 12, margin: 10}}>Login with your email and password.</Text>
 
         <Input     

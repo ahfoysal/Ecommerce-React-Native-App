@@ -25,7 +25,7 @@ function Home({navigation}) {
     const gteProducts = (id) =>{
        
         setActive(id)
-        if(id == 'all'){
+        if(id === 'all'){
             return setActiveCategory(allProducts.slice(0,12))
         }
         const cartItems = allProducts.map((cart)=> {

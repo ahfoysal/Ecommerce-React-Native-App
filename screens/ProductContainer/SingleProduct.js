@@ -37,8 +37,8 @@ const [currentItem, setCurrentItem] = useState(null);
     const dataFetch = async () => {
       const data = await (
         await fetch(
-          // shopLink+`wp-json/wc/v3/products/`+product.id+`/variations?`+key+'&per_page=100'
-          `${StoreLink}/products-${product.id}-variations/&per_page=100`
+          shopLink+`wp-json/wc/v3/products/`+product.id+`/variations?`+key+'&per_page=100'
+          // `${StoreLink}/products-${product.id}-variations/&per_page=100`
 
         )
       ).json();      

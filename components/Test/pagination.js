@@ -1,4 +1,4 @@
-import {StyleSheet, Animated, View, Dimensions, Text} from 'react-native';
+import {StyleSheet, Animated, View, Dimensions} from 'react-native';
 import React from 'react';
 import { GlobalStyles } from '../../util/styles';
 
@@ -24,24 +24,19 @@ const Pagination = ({data, scrollX, index}) => {
 
         const backgroundColor = scrollX.interpolate({
           inputRange,
-          outputRange: ['#ccc', '#000', '#ccc'],
+          outputRange: ['#ccc', GlobalStyles.colors.gray700, '#ccc'],
           extrapolate: 'clamp',
         });
 
         return (
-          <View    key={idx.toString()}> 
-          {idx !== index &&  
           <Animated.View
-        
+            key={idx.toString()}
             style={[
               styles.dot,
               {width: dotWidth, backgroundColor},
               // idx === index && styles.dotActive,
             ]}
-          />}
-          {idx === index &&       <Text style={[ styles.dotActive,{ fontSize: 10, color: 'white', paddingHorizontal: 5, borderRadius: 6}]} >{index+1}/ {data.length}</Text>
-}
-          </View>
+          />
         );
       })}
     </View>
@@ -53,7 +48,7 @@ export default Pagination;
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 15,
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
@@ -67,6 +62,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   dotActive: {
-    backgroundColor: '#484848',
+    backgroundColor: GlobalStyles.colors.gray100,
   },
 });

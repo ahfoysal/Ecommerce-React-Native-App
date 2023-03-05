@@ -33,8 +33,8 @@ const OrderList = ({navigation ,route}) => {
   
   const order = await (
       await fetch(
-        // shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
-        `${StoreLink}/orders/&per_page=100&customer=36`
+        shopLink+`wp-json/wc/v3/orders`+`?customer=36&`+key+'&per_page=100'
+        // `${StoreLink}/orders/&per_page=100&customer=36`
 
 
       )
