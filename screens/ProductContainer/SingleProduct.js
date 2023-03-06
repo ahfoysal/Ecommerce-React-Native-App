@@ -73,14 +73,14 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
               </>
           }
       })
-      },[navigation, handle, wishHandle, dataFetch, ])
+      },[navigation, handle, wishHandle, dataFetch,  ])
 
       useEffect(() => {
-        // console.log(product)
-
+      
+        
+       
         dataFetch()
-// const result = allProducts.filter(word => word.id == product.related_ids[0]);
-// console.log(allProducts);
+
       }, [])
 
 
@@ -95,6 +95,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
       // console.log(att)
       clone.name = `${product.name} ${att}`
       clone.price = id.price
+      clone.parent_id = product.id
       // console.log(clone.id, product.id)
       setCurrentItem(clone)
       setWarning(false)
@@ -117,7 +118,7 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
     function pressHandler(){ 
       // console.log(product.variations)
      
-      if(product.variations.length < 1){
+      if(product.variations.length < 1 || product.parent_id != 0){
         handleSubmit()
        return  addToCart(product)
       }
@@ -153,34 +154,20 @@ const strippedString2 = originalString2.replace(/(<([^>]+)>)/gi, "")
         </>}
         
    <DescriptionContainer isDark={isDark} strippedString={strippedString} strippedString2={strippedString2}/>
-     
-  {/* <View style={styles.variationContainer}>
-  <Text style={styles.des}>You might also like</Text> */}
-         {/* <View style={{flexDirection: 'row'}}>
-         {allProducts.map(item => {
-            return  <Grid   key={item.id}
-                   title={item.name} 
-                   price={item.price}           
-                   imageUrl={item.images[0].src} 
-                   category={item.categories.map(test =>test.name)}
-                    salePrice ={item.sale_price}
-                    regularPrice={item.regular_price}
-                  onPress={() => {
-                    navigation.navigate('Info', {
-  animeId: item.id,
-  animeTitle: item.name,
-  product: item,
-})}}               
-                   />
-          })}
-         </View> */}
 
-  {/* </View> */}
+  <View style={styles.variationContainer}>
+  <Text style={styles.des}>You might also like</Text> 
+       
+
+   </View>
                 </ScrollView>   
                 <>
-                {variations.length > 0 &&    <AddToCartConatiner  pressHandler={pressHandler}/> } 
+                {variations.length > 0   &&    <AddToCartConatiner  pressHandler={pressHandler}/> } 
                 </>
-              {product.variations.length === 0 && <View>
+              {product.variations.length === 0  && <View>
+                  <AddToCartConatiner  pressHandler={pressHandler}/> 
+                </View> }
+                { product.parent_id != 0  && <View>
                   <AddToCartConatiner  pressHandler={pressHandler}/> 
                 </View> }
          </SafeAreaView>

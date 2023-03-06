@@ -8,6 +8,7 @@ const wishSlice = createSlice({
     reducers: {
         addWishList: (state, action) => {
             state.ids.push(action.payload.id);
+        
         },
         removeWishList: (state, action) => {
             state.ids.splice(state.ids.indexOf(action.payload.id), 1);

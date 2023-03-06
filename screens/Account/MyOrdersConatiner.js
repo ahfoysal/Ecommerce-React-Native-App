@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {  Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../util/styles";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 

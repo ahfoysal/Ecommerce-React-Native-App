@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
-import { StyleSheet,  View, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import NavigationsCon from './Navigations/NavigationsCon'
 import { ContextProviderS } from './store/context/AllContext';
 import { Provider } from 'react-redux';
@@ -21,13 +20,8 @@ export default function App({navigation}) {
     <SafeAreaView style={styles.container}>
     <ContextProviderS>
    
-    <Provider store={store}>
-
-
- 
-
-<NavigationsCon 
- />
+    <Provider store={store}> 
+<NavigationsCon />
   </Provider>
   
 

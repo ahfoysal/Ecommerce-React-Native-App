@@ -49,8 +49,8 @@ useEffect(() => {
   function renderPopularItem(itemData) {
     return (
         <CartItemContainer image={itemData.item.image.src}  price={itemData.item.price} 
-      
-        name={itemData.item.name}  quantity={itemData.item.quantity} item={itemData.item}/>
+      navigation={navigation}
+        name={itemData.item.name}  quantity={itemData.item.quantity} />
     )
 }
 function Heders(itemData) {

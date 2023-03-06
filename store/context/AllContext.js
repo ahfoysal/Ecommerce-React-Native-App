@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState, useContext } from "react";
 import jwt_decode from "jwt-decode";
+import { CLearStoredCart, getCartToDb, storeCartToDb, updateExistingCArt } from "../../util/dataBase";
 
 
 const contextProviderS = createContext();
@@ -13,7 +14,7 @@ export function ContextProviderS({ children, navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [allProducts , setAllProducts] = useState([]);
     const [isDark , setIsDark] = useState(true);
-    const [isLoggedIn , setIsLoggedIn ] = useState(true);
+    const [isLoggedIn , setIsLoggedIn ] = useState(false);
     const [userInfo , setUserInfo] = useState({});
 
    
@@ -38,36 +39,52 @@ export function ContextProviderS({ children, navigation }) {
           return 
     
         }
-        console.log(indexOfObject)
+        // console.log(indexOfObject)
         id.quantity = 1
         const newCart = [...cart, id];
         
         setCart(newCart);
+        if(!isLoggedIn){StoreCART(newCart)}
+        if(isLoggedIn){
+        
+        updateExistingCArt(userInfo.id, newCart)
+        }
+       
         // console.log(newCart)
           
     }
-       const Store = async (jwt) => {
+       const StoreCART = async (test) => {
       try {
         await AsyncStorage.setItem(
-          '@MySuperStore:key',
-          jwt,
+          '@cart',
+          JSON.stringify(test),
         );
       } catch (error) {
         // Error saving data
       }
     }
+    const clearCart = () => {
+      setCart([])
+      if(!isLoggedIn) (AsyncStorage.removeItem('@cart'))
+        if(isLoggedIn)(CLearStoredCart(userInfo.id))
+        console.log(userInfo.id)
+    }
     const isLoggedInCheck = async () => {
       
         try {
           const value = await AsyncStorage.getItem('@MySuperStore:key');
-          if (value === null){return setIsLoggedIn(false)}
-          if (value !== null) {
+          if (value === null){
+            getCart()
+            return setIsLoggedIn(false)}
+          if (value != null) {
             // We have data!!
-            console.log(value);
+            // console.log(value);
             try {
               const data = jwt_decode(value);
-              console.log(data)
+              // console.log(data)
               setUserInfo(data)
+              restoringCart(data.id)
+             console.log(restoredCart)
               // valid token format
             } catch(error) {
               // invalid token format
@@ -76,14 +93,44 @@ export function ContextProviderS({ children, navigation }) {
           }
         } catch (error) {
           // Error retrieving data
+          setIsLoggedIn(false)
         }
       
     }
+    const restoringCart = async (user) => {
+       
+        const restoredItems = await getCartToDb(user)
+        //  console.log(restoredItems)
+      if(restoredItems === null) {
+        return setCart([])
+      }
+      setCart(restoredItems)
+    } 
+    const getCart = async () => {
+      
+      try {
+        const value = await AsyncStorage.getItem('@cart');
+        if (value === null){return setCart([])}
+        if (value != null) {
+          // We have data!!
+          // console.log(value);
+          setCart(JSON.parse(value))
+          
+        }
+      } catch (error) {
+        setCart([])
+      }
+    
+  }
+
 
     useEffect(() => {
           
       isLoggedInCheck()
       dataFetch()
+     
+     
+      
     
     }, [])
     
@@ -113,7 +160,7 @@ export function ContextProviderS({ children, navigation }) {
     return(  
     <contextProviderS.Provider value={{   addToCart, cart ,setCart , isLoading,   setLoading, allProducts, 
                                            setAllProducts, isDark,   setIsDark, isLoggedIn , setIsLoggedIn,
-                                           setUserInfo, userInfo       }}>{children}</contextProviderS.Provider>)
+                                           setUserInfo, userInfo , clearCart  , isLoggedInCheck    }}>{children}</contextProviderS.Provider>)
     ;
 
 }

@@ -16,7 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 function Checkout({route, navigation}) {
     const isFocused = useIsFocused();
-    let {  cart,  isDark, setCart, userInfo, isLoggedIn } =  useContextS();
+    let {  cart,  isDark, userInfo, isLoggedIn , clearCart} =  useContextS();
     const [isClicked, setIsClicked] = useState(false);
     const [name, setName] = useState(isLoggedIn ? userInfo.username : 'customer name');
     const [email, setEmail] = useState( isLoggedIn ? userInfo.email : 'CustomerEmail@gmail.com');
@@ -70,13 +70,14 @@ const body2= `${newCart}}`
           
           navigation.navigate('SingleOrder', {
             orderID: rslt.id})
-          setCart([])
+            clearCart()
           setIsClicked(false)
          
           })
         .catch(error => {
           const rslt = error;
           console.log('error', rslt)
+          clearCart()
           setIsClicked(false)
          
         }); 

@@ -7,7 +7,7 @@ import CartItemContainer from './CartItemContainer';
 
 
 function AnimeInfo({route, navigation}) {
-    let {  cart, setCart, isDark } =  useContextS();
+    let {  cart, setCart, isDark, clearCart } =  useContextS();
 
     function pressHandler(){
         
@@ -37,7 +37,7 @@ function AnimeInfo({route, navigation}) {
 
         return (
             <CartItemContainer image={itemData.item.images[0].src}  price={itemData.item.price} regular_price={itemData.item.regular_price}
-            sale_price={itemData.item.sale_price}
+            sale_price={itemData.item.sale_price} navigation={navigation} product={itemData.item}
             name={itemData.item.name} increase={increase} decrease={decrease}  quantity={itemData.item.quantity} item={itemData.item}/>
        
         )
@@ -51,7 +51,19 @@ function AnimeInfo({route, navigation}) {
   Totals.forEach(item => {
       sum += item;
     });
-
+    const clearCartButton = () => {
+        return (
+            <View style={{margin: 20, alignItems: 'flex-end'}}>
+                <Pressable    style={{backgroundColor: GlobalStyles.colors.blue800 , width: 140, borderRadius: 8}} onPress={clearCart}>
+            <Text  style={{   padding: 10,
+            color: 'white',
+        textAlign: 'center',
+                fontWeight: 'bold'
+    }}>Clear Cart</Text>
+         </Pressable>
+            </View>
+        )
+    }
 
     return (
       
@@ -73,7 +85,7 @@ function AnimeInfo({route, navigation}) {
             data={cart}
             keyExtractor={(item, index) => index}
             renderItem={renderPopularItem}
-           
+           ListFooterComponent={clearCartButton}
           />
             <View style={{justifyContent: 'flex-end',  flexDirection: 'row' , margin: 10}}>
             <View style={{justifyContent: 'space-between', marginHorizontal: 20}}>

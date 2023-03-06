@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Account({navigation }) {
   const isFocused = useIsFocused();
-  let {  isDark , isLoggedIn, setIsLoggedIn , userInfo} =  useContextS();
+  let {  isDark , isLoggedIn, setIsLoggedIn , userInfo, restoringCart} =  useContextS();
     const [isLoading, setLoading] = useState(true);
     const [orders, setOrders] = useState({});
     const [newUserInfo, setNewUserInfo] = useState(userInfo);
@@ -47,12 +47,15 @@ const dataFetch2 = async () => {
   };
 useEffect(() => {
   
-  if(isFocused) {
+  if(isFocused & isLoggedIn) {
     dataFetch()
+    console.log(userInfo.id)
+    console.log('ok')
+   
   }
   dataFetch2()
   
-  }, [isFocused])
+  }, [isFocused, isLoggedIn])
   
   function SignOutHandler() {
     AsyncStorage.removeItem('@MySuperStore:key');

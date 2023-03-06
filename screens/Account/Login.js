@@ -14,7 +14,7 @@ import jwt_decode from "jwt-decode";
 
 
 const Login = ({navigation ,route}) => {
-    let {  isDark, setUserInfo , setIsLoggedIn } =  useContextS();
+    let {  isDark, setUserInfo , setIsLoggedIn, isLoggedInCheck } =  useContextS();
     const [loading, setLoading] = useState(false)
     const [loginEmail, setLoginEmail] = useState('hello');
     const [password, setPassword] = useState('test1234');
@@ -58,12 +58,14 @@ const Login = ({navigation ,route}) => {
             const data = jwt_decode(tokens);
             console.log(data)
             setUserInfo(data)
+            isLoggedInCheck()
             
           } catch(error) {
             // invalid token format
           }
           setIsLoggedIn(true)
           navigation.navigate('Account')
+          
           
           // console.log(json.data.jwt)
         

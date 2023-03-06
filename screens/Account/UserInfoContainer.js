@@ -5,7 +5,6 @@ import { GlobalStyles } from "../../util/styles";
 function UserInfoContainer({userInfo, orders}) {
     const wishListItems = useSelector(state => state.wishListItems.ids )
 
-    console.log(userInfo)
     return (
         
 
