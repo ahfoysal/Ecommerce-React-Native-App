@@ -140,9 +140,15 @@ export function ContextProviderS({ children, navigation }) {
     const dataFetch = async () => {
     const data = await (
       await fetch(
-        `${StoreLink}/products/&per_page=100`
+        `${shopLink}wp-json/wc/v3/products?${key}`,
+        {
+          headers: {
+            'Origin': 'https://pewds-shop.vercel.app'
+          }
+        }
       )
     ).json();
+  
     
     
     setAllProducts(data)

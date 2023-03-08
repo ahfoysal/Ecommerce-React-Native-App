@@ -83,7 +83,7 @@ function NavigationCon() {
     
     return (
         <NavigationContainer>
-
+    
       <Stack.Navigator screenOptions={{
           headerStyle: { backgroundColor: '#141414'}, 
           headerTintColor: 'white',
@@ -120,13 +120,12 @@ function NavigationCon() {
         {(props) => <OrderList   {...props} />}
         </Stack.Screen>
 
-      </Stack.Navigator>
 
 
-      
+        </Stack.Navigator>
      
     
-      </NavigationContainer>
+      </NavigationContainer >
         
        
     )

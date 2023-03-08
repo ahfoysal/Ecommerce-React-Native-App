@@ -27,7 +27,7 @@ return (
     <View style={{flexDirection: 'row'}}>
     {!selectedItem ? <Text style={styles.description}> Variations</Text> : <Text style={styles.description}> Selected:</Text>}
     {selectedItem  &&  selectedItem.attributes.map((name,index) => {
-      return <Text  key={index} style={{color: 'white'}}>{selectedItem.attributes[index].name} : {selectedItem.attributes[index].option}, </Text>
+      return  <Text  key={index} style={{color: 'white'}}>{selectedItem.attributes[index].name} : {selectedItem.attributes[index].option}, </Text>
     })}
     <Text style={{color: 'white'}}> ⋄ Stock: {selectedItem?.stock_quantity}</Text>
     </View>

@@ -34,7 +34,12 @@ const OrderList = ({navigation ,route}) => {
   
   const order = await (
       await fetch(
-        shopLink+`wp-json/wc/v3/orders`+`?customer=${userInfo.id}&`+key+'&per_page=100'
+        shopLink+`wp-json/wc/v3/orders`+`?customer=${userInfo.id}&`+key+'&per_page=100',
+        {
+          headers: {
+            'Origin': 'https://pewds-shop.vercel.app'
+          }
+        }
         // `${StoreLink}/orders/&per_page=100&customer=36`
 
 

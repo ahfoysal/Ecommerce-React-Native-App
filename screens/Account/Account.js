@@ -26,7 +26,12 @@ key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs
 const dataFetch = async () => {
 const order = await (
     await fetch(
-      shopLink+`wp-json/wc/v3/orders`+`?customer=${userInfo.id}&`+key+'&per_page=100'
+      shopLink+`wp-json/wc/v3/orders`+`?customer=${userInfo.id}&`+key+'&per_page=100',
+      {
+        headers: {
+          'Origin': 'https://pewds-shop.vercel.app'
+        }
+      }
 
     )
   ).json();
@@ -36,7 +41,12 @@ const order = await (
 const dataFetch2 = async () => {
   const data = await (
     await fetch(
-      shopLink+`wp-json/wc/v3/customers/${userInfo.id}`+`?`+key
+      shopLink+`wp-json/wc/v3/customers/${userInfo.id}`+`?`+key,
+      {
+        headers: {
+          'Origin': 'https://pewds-shop.vercel.app'
+        }
+      }
       // `${StoreLink}/customers-36/&per_page=100`
   
     )

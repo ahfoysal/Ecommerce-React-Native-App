@@ -31,7 +31,12 @@ const dataFetch = async () => {
 const data = await (
   await fetch(
     // shopLink+`wp-json/wc/v3/orders/`+orderID+`?`+key+'&per_page=100'
-    `${StoreLink}/orders-${orderID}/&per_page=100`
+    `${StoreLink}/orders-${orderID}/&per_page=100`,
+    {
+        headers: {
+          'Origin': 'https://pewds-shop.vercel.app'
+        }
+      }
 
   )
 ).json();
