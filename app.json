@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "PewdsFlix",
+    "name": "Pewds Shop",
     "slug": "PewdsFlix",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/pewdss.png",
     "userInterfaceStyle": "light",
     "backgroundColor": "#141414",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/pewds.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#141414"
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.hosan30.PewdsFlix"
+      "package": "com.hosan30.pewdsshop"
     },
     "web": {
       "favicon": "./assets/favicon.png"
