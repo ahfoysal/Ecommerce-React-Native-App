@@ -22,17 +22,34 @@ function DeliveryInfo({name, setName, email, setEmail, phoneNumber, setPhoneNumb
 
 <View style={{marginVertical: 10}}>
 <Input    
-      placeholder='Email'
-      onChangeText={LoginHandle}
-    //   value={loginEmail}
-      inputStyle={{color: 'white'}}
+      placeholder='Name'
+      onChangeText={(value) => setPhoneNumber(value)}
+      value={name}
+      inputStyle={{color: 'white', fontSize: 15}}
 
         />
-    <Text style={{color: GlobalStyles.colors.lightTheme, marginVertical: 8,  fontSize: 15}}>Name: {name} </Text>
-    <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 15}}>Address: {address} </Text>
-    <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 15}}>Phone Number: {phoneNumber}</Text>
-    <Text style={{color: GlobalStyles.colors.gray100, marginVertical: 8,  fontSize: 15}}>Email: {email}</Text>
+          <Input    
+      placeholder='Phone'
+      onChangeText={(value) => phoneNumber(value)}
+      value={phoneNumber}
+      inputStyle={{color: 'white', fontSize: 15}}
 
+        />
+        <Input    
+      placeholder='Email'
+      onChangeText={(value) => setEmail(value)}
+      value={email}
+      inputStyle={{color: 'white', fontSize: 15}}
+
+        />
+          <Input    
+      placeholder='Email'
+      onChangeText={(value) => setAddress(value)}
+      value={address}
+      inputStyle={{color: 'white', fontSize: 15}}
+
+        />
+    
     </View>
     </View>
        
