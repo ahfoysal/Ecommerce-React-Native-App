@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Pewds Shop",
-    "slug": "PewdsFlix",
+    "slug": "pewds-shop",
     "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,7 +34,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "3cb47b2c-5cc9-4204-b54d-cf7dfc675e54"
+        "projectId": "280a8809-78b8-42f8-9264-e7222b9a88c3"
       }
     },
     "runtimeVersion": {
