@@ -1524,6 +1524,22 @@
     "base64-js" "^1.2.3"
     "xmlbuilder" "^14.0.0"
 
+"@expo/prebuild-config@~6.0.0", "@expo/prebuild-config@6.0.0":
+  "integrity" "sha512-UW0QKAoRelsalVMhAG1tmegwS+2tbefvUi6/0QiKPlMLg8GFDQ5ZnzsSmuljD0SzT5yGg8oSpKYhnrXJ6pRmIQ=="
+  "resolved" "https://registry.npmjs.org/@expo/prebuild-config/-/prebuild-config-6.0.0.tgz"
+  "version" "6.0.0"
+  dependencies:
+    "@expo/config" "~8.0.0"
+    "@expo/config-plugins" "~6.0.0"
+    "@expo/config-types" "^48.0.0"
+    "@expo/image-utils" "0.3.22"
+    "@expo/json-file" "^8.2.37"
+    "debug" "^4.3.1"
+    "fs-extra" "^9.0.0"
+    "resolve-from" "^5.0.0"
+    "semver" "7.3.2"
+    "xml2js" "0.4.23"
+
 "@expo/prebuild-config@4.0.3":
   "integrity" "sha512-ZRMn0a9Wo/coKXLMvizUytqtG5pniUHaBMSS28yFTcGVvyDJh2nFVkBf9po52mSkbm9rGp/Pev6GAf57m6S2BA=="
   "resolved" "https://registry.npmjs.org/@expo/prebuild-config/-/prebuild-config-4.0.3.tgz"
@@ -1536,22 +1552,6 @@
     "@expo/json-file" "8.2.36"
     "debug" "^4.3.1"
     "expo-modules-autolinking" "0.8.1"
-    "fs-extra" "^9.0.0"
-    "resolve-from" "^5.0.0"
-    "semver" "7.3.2"
-    "xml2js" "0.4.23"
-
-"@expo/prebuild-config@6.0.0":
-  "integrity" "sha512-UW0QKAoRelsalVMhAG1tmegwS+2tbefvUi6/0QiKPlMLg8GFDQ5ZnzsSmuljD0SzT5yGg8oSpKYhnrXJ6pRmIQ=="
-  "resolved" "https://registry.npmjs.org/@expo/prebuild-config/-/prebuild-config-6.0.0.tgz"
-  "version" "6.0.0"
-  dependencies:
-    "@expo/config" "~8.0.0"
-    "@expo/config-plugins" "~6.0.0"
-    "@expo/config-types" "^48.0.0"
-    "@expo/image-utils" "0.3.22"
-    "@expo/json-file" "^8.2.37"
-    "debug" "^4.3.1"
     "fs-extra" "^9.0.0"
     "resolve-from" "^5.0.0"
     "semver" "7.3.2"
@@ -4739,10 +4739,10 @@
   dependencies:
     "expo-json-utils" "~0.5.0"
 
-"expo-modules-autolinking@0.8.1":
-  "integrity" "sha512-S8qfaXCv//7tQWV9M+JKx3CF7ypYhDdSUbkUQdaVO/r8D76/aRTArY/aRw1yEfaAOzyK8C8diDToV1itl51DfQ=="
-  "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-0.8.1.tgz"
-  "version" "0.8.1"
+"expo-modules-autolinking@~1.1.0", "expo-modules-autolinking@1.1.2":
+  "integrity" "sha512-oOlkAccVnHwwR5ccvF/F/x4Omj9HWzSimMUlIVz0SVGdNBEqTPyn0L/d4uIufhyQbEWvrarqL8o5Yz11wEI0SQ=="
+  "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-1.1.2.tgz"
+  "version" "1.1.2"
   dependencies:
     "chalk" "^4.1.0"
     "commander" "^7.2.0"
@@ -4750,10 +4750,10 @@
     "find-up" "^5.0.0"
     "fs-extra" "^9.1.0"
 
-"expo-modules-autolinking@1.1.2":
-  "integrity" "sha512-oOlkAccVnHwwR5ccvF/F/x4Omj9HWzSimMUlIVz0SVGdNBEqTPyn0L/d4uIufhyQbEWvrarqL8o5Yz11wEI0SQ=="
-  "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-1.1.2.tgz"
-  "version" "1.1.2"
+"expo-modules-autolinking@0.8.1":
+  "integrity" "sha512-S8qfaXCv//7tQWV9M+JKx3CF7ypYhDdSUbkUQdaVO/r8D76/aRTArY/aRw1yEfaAOzyK8C8diDToV1itl51DfQ=="
+  "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-0.8.1.tgz"
+  "version" "0.8.1"
   dependencies:
     "chalk" "^4.1.0"
     "commander" "^7.2.0"

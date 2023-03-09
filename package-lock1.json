@@ -8,6 +8,8 @@
       "name": "pewdsshop",
       "version": "1.0.0",
       "dependencies": {
+        "@expo/config-plugins": "~6.0.0",
+        "@expo/prebuild-config": "~6.0.0",
         "@react-native-async-storage/async-storage": "1.17.11",
         "@react-navigation/bottom-tabs": "^6.5.6",
         "@react-navigation/native": "^6.1.4",
@@ -18,6 +20,7 @@
         "axios": "^1.3.4",
         "expo": "^48.0.0",
         "expo-cli": "^6.3.1",
+        "expo-modules-autolinking": "~1.1.0",
         "expo-screen-orientation": "~5.1.1",
         "expo-status-bar": "~1.4.4",
         "expo-updates": "~0.16.3",

@@ -2,13 +2,13 @@
   "expo": {
     "name": "Pewds Shop",
     "slug": "PewdsFlix",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/pewdss.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "backgroundColor": "#141414",
     "splash": {
-      "image": "./assets/pewds.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#141414"
     },
