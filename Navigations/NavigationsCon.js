@@ -14,11 +14,9 @@ import { useSelector } from 'react-redux';
 import SingleOrder from '../screens/SingleOrder';
 import Account from '../screens/Account/Account';
 import OrderList from '../screens/OrderListContainer/OrderList';
-import { useEffect, useState } from 'react';
 import { useContextS } from '../store/context/AllContext';
 import { GlobalStyles } from '../util/styles';
 import SignUp from '../screens/Account/SignUp';
-
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 

@@ -9,6 +9,7 @@ import DeliveryInfo from './DeliveryInformation';
 import { useEffect, useState } from "react";
 import { useContextS } from "../../store/context/AllContext";
 import { useIsFocused } from "@react-navigation/native";
+import * as Notifications from 'expo-notifications'
 
     
 
@@ -29,6 +30,20 @@ useEffect(() => {
   console.log('hi')}
 }, [navigation, isFocused])
 
+
+
+
+const setNotificationHandler = () => {
+    Notifications.scheduleNotificationAsync({
+        content: {
+            title: 'Complete your order!!!! ',
+            body: 'Complete Your payment to avoid cancellation of your order.'
+        },
+        trigger: {
+            seconds: 10,
+        }
+    })
+}
 
 
 
@@ -65,7 +80,7 @@ const body2= `${newCart}}`
         .then(result => {
           const rslt = result;
           console.log(rslt)
-          
+          setNotificationHandler()
           WebBrowser.openBrowserAsync(`https://sslcommerz-gateway.vercel.app/ssl-request/${rslt.total}/${rslt.id}`)
           
           navigation.navigate('SingleOrder', {

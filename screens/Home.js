@@ -49,7 +49,7 @@ function Home({navigation}) {
              
 
          <Category active={active}  setActive={setActive} pro={allProducts} onPress={gteProducts}/>
-         <Allitems   pro={activeCategory.length < 1 ?  allProducts.slice(0,12) : activeCategory} isLoading={isLoading} navigation={navigation}/>
+         <Allitems   pro={activeCategory.length < 1 ?  allProducts : activeCategory} isLoading={isLoading} navigation={navigation}/>
          </View>
     )
 }

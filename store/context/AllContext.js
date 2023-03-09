@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { CLearStoredCart, getCartToDb, storeCartToDb, updateExistingCArt } from "../../util/dataBase";
-
+import * as Notifications from 'expo-notifications';
 
 const contextProviderS = createContext();
 
@@ -126,6 +126,7 @@ export function ContextProviderS({ children, navigation }) {
 
     useEffect(() => {
           
+    
       isLoggedInCheck()
       dataFetch()
      
@@ -140,7 +141,7 @@ export function ContextProviderS({ children, navigation }) {
     const dataFetch = async () => {
     const data = await (
       await fetch(
-        `${shopLink}wp-json/wc/v3/products?${key}`,
+        `${shopLink}wp-json/wc/v3/products?${key}&per_page=100`,
         {
           headers: {
             'Origin': 'https://pewds-shop.vercel.app'
