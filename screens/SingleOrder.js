@@ -10,7 +10,7 @@ import { useContextS } from "../store/context/AllContext";
 import { GlobalStyles } from "../util/styles"
 import CartItemContainer from "./cartContainer/CartItemContainer";
 import ButtonContainer from "./checkoutContainer/ButtonContainer";
-import Summray from "./checkoutContainer/Summray";
+import Summary from "./checkoutContainer/Summary";
 
 
 
@@ -24,14 +24,18 @@ function SingleOrder({route, navigation}) {
 
     const orderID = route.params.orderID
 
-    let StoreLink = `https://sslcommerz-gateway-yjsc.vercel.app/shop`
-    let shopLink = 'https://shop.abusayeeed.xyz/wp/'
-key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
-const dataFetch = async () => {
+
+    // let shopLink = 'https://shop.abusayeeed.xyz/wp/'
+    // key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+
+    let shopLink = 'https://shop.tazreemart.com/index.php/'
+    key='consumer_key=ck_99ddb89db91e4691a163af42f098a1b00c482041&consumer_secret=cs_5738b6a3295a0ba1fbf3852977eb03b50fa018c8'
+   
+    const dataFetch = async () => {
 const data = await (
   await fetch(
-    // shopLink+`wp-json/wc/v3/orders/`+orderID+`?`+key+'&per_page=100'
-    `${StoreLink}/orders-${orderID}/&per_page=100`,
+    shopLink+`wp-json/wc/v3/orders/`+orderID+`?`+key+'&per_page=100',
+    // `${StoreLink}/orders-${orderID}/&per_page=100`,
     {
         headers: {
           'Origin': 'https://pewds-shop.vercel.app'
@@ -58,14 +62,14 @@ useEffect(() => {
         name={itemData.item.name}  quantity={itemData.item.quantity} />
     )
 }
-function Heders(itemData) {
+function Headers(itemData) {
     return (
        <>
-        <View style={[styles.innerContainer, {backgroundColor:  orderInfo.status  ==  'completed'  ? 'green' : GlobalStyles.colors.orange400  }]}> 
+        <View style={[styles.innerContainer, {backgroundColor:  orderInfo?.status  ==  'completed'  ? 'green' : GlobalStyles.colors.orange400  }]}> 
             
             <Text  style={{   paddingVertical: 20, color: 'white', textAlign: 'center', fontWeight: 'bold',
             fontSize: 16
-             }}>{orderInfo.needs_payment ?  'Payment Pending' : orderInfo.status}</Text>
+             }}>{orderInfo?.needs_payment ?  'Payment Pending' : orderInfo?.status}</Text>
              </View>
  
  
@@ -79,8 +83,8 @@ function Heders(itemData) {
              </View>
  
              <View style={[styles.innerContainer]}> 
-            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.orange400, fontSize: 17  }}> Order #{orderInfo.id}</Text>
-            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.lightTheme, fontSize: 14  }}> Placed on {new Date(orderInfo.date_created).toLocaleString()}</Text>
+            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.orange400, fontSize: 17  }}> Order #{orderInfo?.id}</Text>
+            <Text  style={{ paddingVertical: 8,  color: GlobalStyles.colors.lightTheme, fontSize: 14  }}> Placed on {new Date(orderInfo?.date_created).toLocaleString()}</Text>
 
              </View>
        </>
@@ -89,7 +93,7 @@ function Heders(itemData) {
 function Footers(itemData) {
     return (
        <>
-         <Summray total={orderInfo.total} />
+         <Summary total={orderInfo.total} />
         
        </>
     )
@@ -105,7 +109,7 @@ function Footers(itemData) {
             keyExtractor={(item, index) => index}
             renderItem={renderPopularItem}
             ListFooterComponent={Footers}
-            ListHeaderComponent={Heders}
+            ListHeaderComponent={Headers}
            
           />
            

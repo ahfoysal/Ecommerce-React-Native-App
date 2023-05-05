@@ -39,7 +39,7 @@ const Login = ({navigation ,route}) => {
                 return setErr('Please enter password')}
       setErr('')
       setLoading(true)
-      fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=${loginEmail}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+      fetch(`https://shop.tazreemart.com/?rest_route=/simple-jwt-login/v1/auth&username=${loginEmail}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
   method: "POST",
   headers: {
     "Content-type": "application/json; charset=UTF-8"

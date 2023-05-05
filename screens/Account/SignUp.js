@@ -37,7 +37,7 @@ const SignUp = ({navigation ,route}) => {
     const  LoginHandle = () => {
       setErr('')
       
-      fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/auth&username=${userName}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+      fetch(`https://shop.tazreemart.com/?rest_route=/simple-jwt-login/v1/auth&username=${userName}&password=${password}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
   method: "POST",
   headers: {
     "Content-type": "application/json; charset=UTF-8"
@@ -77,7 +77,7 @@ const SignUp = ({navigation ,route}) => {
             return setErr('Please enter email')}
                 if(!password){
                     return setErr('Please enter password')}
-        fetch(`https://shop.abusayeeed.xyz/wp/?rest_route=/simple-jwt-login/v1/users&email=${loginEmail}&password=${password}&user_login=${userName}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
+        fetch(`https://shop.tazreemart.com/?rest_route=/simple-jwt-login/v1/users&email=${loginEmail}&password=${password}&user_login=${userName}&THISISMySpeCiaLAUthCodee=THISISMySpeCiaLAUthCodee`, {
             method: "POST",
             headers: {
               "Content-type": "application/json; charset=UTF-8"

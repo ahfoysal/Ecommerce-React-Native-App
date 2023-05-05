@@ -5,7 +5,7 @@ import { GlobalStyles } from "../../util/styles"
 
 
 
-function Summray({total}) {
+function Summary({total}) {
 return (
  
     <View style={styles.innerContainer}>
@@ -37,7 +37,7 @@ return (
 )
 }
 
-export default Summray
+export default Summary
 
 const styles = StyleSheet.create({
     

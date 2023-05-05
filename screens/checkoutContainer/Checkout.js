@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { GlobalStyles } from '../../util/styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CartItemContainer from '../cartContainer/CartItemContainer';
-import Summray from './Summray';
+import Summary from './Summary';
 import ButtonContainer from './ButtonContainer';
 import DeliveryInfo from './DeliveryInformation';
 import { useEffect, useState } from "react";
@@ -60,7 +60,10 @@ const body2= `${newCart}}`
         body: body1.concat(' ', body2),
         redirect: 'follow'
       };
-      fetch(`https://sslcommerz-gateway-yjsc.vercel.app/post`, requestOptions)
+      let shopLink = 'https://shop.tazreemart.com/index.php/'
+      key='consumer_key=ck_99ddb89db91e4691a163af42f098a1b00c482041&consumer_secret=cs_5738b6a3295a0ba1fbf3852977eb03b50fa018c8'
+     
+      fetch(`https://shop.tazreemart.com/index.php/wp-json/wc/v3/orders?${key}`, requestOptions)
         .then(response => response.json())
         .then(result => {
           const rslt = result;
@@ -92,7 +95,7 @@ const body2= `${newCart}}`
     }
     function summary(itemData) {
         return (
-            <Summray total={total}/>
+            <Summary total={total}/>
         )
     }
     function Delivery(itemData) {

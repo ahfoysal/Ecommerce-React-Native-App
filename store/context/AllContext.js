@@ -47,7 +47,7 @@ export function ContextProviderS({ children, navigation }) {
         if(!isLoggedIn){StoreCART(newCart)}
         if(isLoggedIn){
         
-        updateExistingCArt(userInfo.id, newCart)
+        // updateExistingCArt(userInfo.id, newCart)
         }
        
         // console.log(newCart)
@@ -66,7 +66,7 @@ export function ContextProviderS({ children, navigation }) {
     const clearCart = () => {
       setCart([])
       if(!isLoggedIn) (AsyncStorage.removeItem('@cart'))
-        if(isLoggedIn)(CLearStoredCart(userInfo.id))
+        // if(isLoggedIn)(CLearStoredCart(userInfo.id))
         console.log(userInfo.id)
     }
     const isLoggedInCheck = async () => {
@@ -83,7 +83,7 @@ export function ContextProviderS({ children, navigation }) {
               const data = jwt_decode(value);
               // console.log(data)
               setUserInfo(data)
-              restoringCart(data.id)
+              // restoringCart(data.id)
              console.log(restoredCart)
               // valid token format
             } catch(error) {
@@ -136,8 +136,12 @@ export function ContextProviderS({ children, navigation }) {
     }, [])
     
     let StoreLink = `https://sslcommerz-gateway-yjsc.vercel.app/shop`
-    let shopLink = 'https://shop.abusayeeed.xyz/wp/'
-    key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+    // let shopLink = 'https://shop.abusayeeed.xyz/wp/'
+    // key='consumer_key=ck_7d700d7c05bea9f024076feb890944ad286703f2&consumer_secret=cs_59a8c6db54711f8a9fc314b95e0ad782a946c191'
+
+    let shopLink = 'https://shop.tazreemart.com/index.php/'
+    key='consumer_key=ck_99ddb89db91e4691a163af42f098a1b00c482041&consumer_secret=cs_5738b6a3295a0ba1fbf3852977eb03b50fa018c8'
+   
     const dataFetch = async () => {
     const data = await (
       await fetch(
