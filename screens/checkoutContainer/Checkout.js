@@ -35,7 +35,7 @@ useEffect(() => {
     const total = cart.reduce((total, prd) => total + prd.price * prd.quantity , 0)
     const createOrder = () => {
         setIsClicked(true)
-        // console.log('prrssed')
+     
        
         const cartItems = cart.map((cart) => `{'product_id': ${cart.id},'quantity': ${cart.quantity}}` );
         const StringCart= JSON.stringify(cartItems);  
@@ -63,7 +63,7 @@ const body2= `${newCart}}`
       let shopLink = 'https://shop.tazreemart.com/index.php/'
       key='consumer_key=ck_99ddb89db91e4691a163af42f098a1b00c482041&consumer_secret=cs_5738b6a3295a0ba1fbf3852977eb03b50fa018c8'
      
-      fetch(`https://shop.tazreemart.com/index.php/wp-json/wc/v3/orders?${key}`, requestOptions)
+      fetch(`${shopLink}/wp-json/wc/v3/orders?${key}`, requestOptions)
         .then(response => response.json())
         .then(result => {
           const rslt = result;
